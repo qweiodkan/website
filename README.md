@@ -48,11 +48,9 @@ docker restart nginx-site
 
 ## 服务器信息
 
-- **IP**: 43.139.92.160
 - **域名**: https://tangyuanzhp.top
-- **Docker 容器**:
-  - nginx-site (Nginx + Brotli)
-  - typecho-php (PHP-FPM)
+- **架构**: Docker + Nginx + Typecho
+- **CI/CD**: GitHub Actions 自动部署
 
 ## 本地开发
 
