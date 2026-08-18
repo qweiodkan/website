@@ -30,4 +30,35 @@ npm-debug.log*
 # 临时文件
 *.tmp
 *.temp
-~*
+~*# 敏感文件 - 禁止提交
+*.conf
+*.bak*
+*.log
+*.env
+*.sql
+*.db
+*.sqlite
+*.pem
+*.key
+*.htpasswd*
+
+# 部署脚本
+backup.sh
+push_to_baidu.py
+deploy.yml
+
+# Git 目录
+.git/
+.gitignore
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+generate.php
