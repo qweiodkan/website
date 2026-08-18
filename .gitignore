@@ -1,0 +1,33 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 依赖目录
+node_modules/
+
+# 构建输出
+dist/
+build/
+
+# 日志文件
+*.log
+npm-debug.log*
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# WorkBuddy工作目录
+.workbuddy/
+
+# 临时文件
+*.tmp
+*.temp
+~*
