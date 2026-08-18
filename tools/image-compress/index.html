@@ -465,7 +465,8 @@ var _hmt = _hmt || [];
             } else {
                 var saving = result.originalSize - result.compressedSize;
                 var savingPct = Math.round(saving / result.originalSize * 100);
-                div.innerHTML = '<img src="' + result.url + '" alt="压缩预览" loading="lazy">'
+                var imgUrl = (typeof result.url === 'string' && result.url.indexOf('blob:') === 0) ? result.url : '';
+                div.innerHTML = '<img src="' + imgUrl + '" alt="压缩预览" loading="lazy">'
                     + '<div class="result-meta">'
                     + '<div class="name">' + esc(result.originalName) + '</div>'
                     + '<div class="info">'
@@ -576,7 +577,7 @@ var _hmt = _hmt || [];
             }
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" crossorigin="anonymous"></script>
     <script>
     var _hmt = _hmt || [];
     (function() {

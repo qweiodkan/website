@@ -479,6 +479,12 @@ var _hmt = _hmt || [];
             renderPreview();
         }
 
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, function(c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
         function renderPreview() {
             var area = document.getElementById('previewArea');
             var content = document.getElementById('previewContent');
@@ -488,10 +494,11 @@ var _hmt = _hmt || [];
             for (var i = 0; i < limit; i++) {
                 var s = shiftedSubtitles[i];
                 var changed = (s.startStr !== s.origStartStr);
+                var text = s.text.length > 40 ? s.text.substring(0,40) + '...' : s.text;
                 html += '<div class="preview-item">'
-                    + '<span class="preview-index">#' + s.index + '</span>'
-                    + '<span class="preview-time' + (changed ? ' changed' : '') + '">' + s.startStr + ' --> ' + s.endStr + '</span>'
-                    + '<span class="preview-text">' + (s.text.length > 40 ? s.text.substring(0,40) + '...' : s.text) + '</span>'
+                    + '<span class="preview-index">#' + escapeHtml(s.index) + '</span>'
+                    + '<span class="preview-time' + (changed ? ' changed' : '') + '">' + escapeHtml(s.startStr) + ' --> ' + escapeHtml(s.endStr) + '</span>'
+                    + '<span class="preview-text">' + escapeHtml(text) + '</span>'
                     + '</div>';
             }
             if (shiftedSubtitles.length > 20) {
