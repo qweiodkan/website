@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频码率计算器 - 在线计算文件大小/时长/最佳码率 | 汤圆知识树屋</title>
+    <meta name="description" content="免费在线视频码率计算器。输入文件大小和时长，秒算视频码率；也可反向计算文件大小或时长。含B站、抖音、YouTube等平台推荐码率参考表。">
+    <meta name="keywords" content="视频码率计算器,码率计算,视频文件大小计算,比特率计算器,视频压缩码率,在线视频码率工具">
+    <link rel="canonical" href="https://tangyuanzhp.top/tool/bitrate-calculator/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta property="og:title" content="视频码率计算器 - 在线计算文件大小/时长/最佳码率 | 汤圆知识树屋">
+    <meta property="og:description" content="免费在线视频码率计算器。输入文件大小和时长秒算码率，含各大平台推荐码率参考表。">
+    <meta property="og:url" content="https://tangyuanzhp.top/tool/bitrate-calculator/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="汤圆知识树屋">
+    <meta property="og:locale" content="zh_CN">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "视频码率计算器",
+      "description": "免费在线视频码率计算器，支持三种模式计算视频码率、文件大小和时长。含各大平台推荐码率参考表。",
+      "url": "https://tangyuanzhp.top/tool/bitrate-calculator/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "上传抖音的视频码率多少合适？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "抖音 1080p 视频推荐码率 3000~6000 kbps，音频 128 kbps。但抖音会二次压缩，建议上传时用接近上限的 6000 kbps 保留画质冗余。低于 3000 kbps 会出现明显色块，高于 8000 kbps 没意义（平台会压回去）。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "视频码率（比特率）到底是什么意思？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "码率是视频每秒传输的数据量，单位通常为 kbps（千比特/秒）或 Mbps（兆比特/秒）。码率越高画质越好、文件越大，是画质和体积之间的核心权衡参数。1080p 视频一般建议 4000~8000 kbps，4K 建议 15000~45000 kbps。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "500MB 的视频 10 分钟，码率是多少？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "约 6827 kbps，换算成 6.8 Mbps。计算公式：码率 = 文件大小(MB) × 8192 ÷ 时长(秒)。500 × 8192 ÷ 600 ≈ 6827 kbps。这个码率对 1080p 视频属于中等偏上画质。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "CBR 和 VBR 选哪个好？有什么区别？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "存储和上传选 VBR（可变码率），直播推流选 CBR（固定码率）。VBR 根据画面复杂度动态分配数据，复杂画面给多、简单画面给少，同样画质下文件更小；CBR 全程统一码率，文件大小可预测，直播稳定性更好。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "B 站、YouTube、视频号分别要多少码率？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "B 站 1080p 用 6000 kbps、4K 用 20000 kbps；YouTube 1080p 用 8000 kbps（H.264）、4K 用 35000~45000 kbps；微信视频号 1080p 用 4000~8000 kbps；抖音、快手、小红书 1080p 用 3000~6000 kbps。YouTube 码率要求最高，国内平台码率上限普遍较低。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "码率和分辨率是什么关系？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "分辨率决定画面像素数（如 1920×1080），码率决定每个像素分到多少数据。高分辨率配低码率会模糊，低分辨率配高码率清晰但浪费空间。一般分辨率越高所需码率越大，1080p 配 4000~8000 kbps、4K 配 15000~45000 kbps 是合理区间。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么算出来的码率和实际文件信息不一样？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "本计算器算的是\"视频+音频总码率\"。用 FFmpeg 或 MediaInfo 查看时可能只显示视频流码率（不含音频）。另外视频文件还包含容器封装开销（metadata、字幕等），实际可用码率会略低于理论值，误差通常在 5% 以内。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "这个码率计算器要联网吗？会上传数据吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不需要联网，所有计算在浏览器本地完成，不收集任何数据。完全免费，无需注册，可离线使用，无限次使用。"
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        body > * { flex-shrink: 0; }
+        body > footer { margin-top: auto; }
+
+        nav {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #aaa; text-decoration: none; margin-left: 30px; transition: color 0.3s; }
+        .nav-links a:hover { color: #fff; }
+
+        .breadcrumb {
+            padding: 90px 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .breadcrumb a { color: #666; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { color: #aaa; font-size: 14px; }
+
+        .hero {
+            background: #000;
+            color: #fff;
+            padding: 50px 20px 80px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 42px; margin-bottom: 16px; font-weight: 700; }
+        .hero p { font-size: 18px; color: #aaa; max-width: 600px; margin: 0 auto; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-title { text-align: center; font-size: 30px; margin-bottom: 40px; color: #000; }
+
+        /* 计算器主体 */
+        .calculator-section {
+            padding: 60px 20px;
+            background: #fff;
+        }
+        .calculator-card {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        /* 模式选择 tabs */
+        .mode-tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .mode-tab {
+            flex: 1;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            border: none;
+            background: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .mode-tab:hover { color: #333; background: #eee; }
+        .mode-tab.active {
+            color: #000;
+            background: #fff;
+            font-weight: 600;
+        }
+        .mode-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: #000;
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* 表单区域 */
+        .calc-form {
+            padding: 32px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .input-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .input-row input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-row input:focus {
+            border-color: #000;
+        }
+        .unit-select {
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #fff;
+            cursor: pointer;
+            min-width: 100px;
+            outline: none;
+        }
+        .unit-select:focus { border-color: #000; }
+
+        .duration-fields {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .duration-fields input {
+            width: 80px;
+            padding: 12px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .duration-fields input:focus { border-color: #000; }
+        .duration-fields span { color: #999; font-size: 15px; font-weight: 500; }
+
+        .preset-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .preset-btn {
+            padding: 6px 14px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: #fff;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .preset-btn:hover {
+            border-color: #000;
+            color: #000;
+        }
+
+        /* 结果区域 */
+        .result-area {
+            background: #f9fafb;
+            border-top: 1px solid #e5e5e5;
+            padding: 28px 32px;
+            display: none;
+        }
+        .result-area.visible { display: block; }
+        .result-main {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .result-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: -1px;
+        }
+        .result-unit {
+            font-size: 20px;
+            color: #666;
+            font-weight: 500;
+        }
+        .result-detail {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .result-detail code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        /* 错误提示 */
+        .error-msg {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+        .error-msg.visible { display: block; }
+
+        /* 参考表 */
+        .reference-section {
+            padding: 60px 20px;
+            background: #f5f5f5;
+        }
+        .ref-table-wrap {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+        .ref-table {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .ref-table thead {
+            background: #000;
+            color: #fff;
+        }
+        .ref-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .ref-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #333;
+        }
+        .ref-table tbody tr:hover { background: #f9fafb; }
+        .ref-table tbody tr:last-child td { border-bottom: none; }
+
+        /* 公式说明 */
+        .formula-section {
+            padding: 60px 20px;
+            background: #fff;
+        }
+        .formula-box {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 28px;
+            border-left: 4px solid #000;
+        }
+        .formula-box h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #000;
+        }
+        .formula {
+            font-size: 20px;
+            font-family: "Courier New", Courier, monospace;
+            background: #fff;
+            padding: 16px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 8px 0;
+            letter-spacing: 1px;
+        }
+        .formula-note {
+            color: #666;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 60px 20px;
+            background: #f5f5f5;
+        }
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            margin-bottom: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .faq-question {
+            background: #fff;
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: #f0f0f0; }
+        .faq-answer {
+            background: #fff;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+        .faq-answer.active { padding: 18px 20px; max-height: 500px; }
+        .faq-arrow { transition: transform 0.3s; }
+        .faq-arrow.rotate { transform: rotate(180deg); }
+
+        footer {
+            background: #111;
+            color: #666;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 54px; left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 99;
+            padding: 10px 0 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 15px; }
+            .mode-tab { font-size: 13px; padding: 12px 8px; }
+            .result-value { font-size: 36px; }
+            .duration-fields input { width: 60px; }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links">
+                <a href="/">首页</a>
+                <a href="/tool/">导航</a>
+                <a href="/blog/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="菜单" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">首页</a>
+        <a href="/tool/">导航</a>
+        <a href="/blog/">文章</a>
+        <a href="/about/">关于</a>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="/">首页</a> <span>/</span> <a href="/tool/">导航</a> <span>/</span> 视频码率计算器
+    </div>
+
+    <section class="hero">
+        <h1>视频码率计算器</h1>
+        <p>输入文件大小和时长，秒算视频码率。支持三种模式：算码率、算文件大小、算时长。</p>
+    </section>
+
+    <!-- 计算器 -->
+    <section class="calculator-section">
+        <div class="calculator-card">
+            <div class="mode-tabs">
+                <button class="mode-tab active" data-mode="bitrate" onclick="switchMode('bitrate')">计算码率</button>
+                <button class="mode-tab" data-mode="filesize" onclick="switchMode('filesize')">计算文件大小</button>
+                <button class="mode-tab" data-mode="duration" onclick="switchMode('duration')">计算时长</button>
+            </div>
+
+            <div class="calc-form">
+                <!-- 模式1：计算码率 -->
+                <div id="mode-bitrate" class="mode-content">
+                    <div class="input-group">
+                        <label>视频文件大小</label>
+                        <div class="input-row">
+                            <input type="number" id="br-filesize" placeholder="如 100" min="0.1" step="0.1" oninput="calculateBitrate()">
+                            <select class="unit-select" id="br-filesize-unit" onchange="calculateBitrate()">
+                                <option value="MB">MB</option>
+                                <option value="GB">GB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>视频时长</label>
+                        <div class="duration-fields">
+                            <input type="number" id="br-hours" placeholder="时" min="0" oninput="calculateBitrate()">
+                            <span>时</span>
+                            <input type="number" id="br-minutes" placeholder="分" min="0" max="59" oninput="calculateBitrate()">
+                            <span>分</span>
+                            <input type="number" id="br-seconds" placeholder="秒" min="0" max="59" oninput="calculateBitrate()">
+                            <span>秒</span>
+                        </div>
+                    </div>
+                    <div class="error-msg" id="br-error"></div>
+                </div>
+
+                <!-- 模式2：计算文件大小 -->
+                <div id="mode-filesize" class="mode-content" style="display:none">
+                    <div class="input-group">
+                        <label>视频码率</label>
+                        <div class="input-row">
+                            <input type="number" id="fs-bitrate" placeholder="如 5000" min="1" step="1" oninput="calculateFilesize()">
+                            <select class="unit-select" id="fs-bitrate-unit" onchange="calculateFilesize()">
+                                <option value="kbps">kbps</option>
+                                <option value="Mbps">Mbps</option>
+                            </select>
+                        </div>
+                        <div class="preset-row">
+                            <button class="preset-btn" onclick="setPresetFilesize(1000, 'kbps')">1000 kbps (低清)</button>
+                            <button class="preset-btn" onclick="setPresetFilesize(2500, 'kbps')">2500 kbps (标清)</button>
+                            <button class="preset-btn" onclick="setPresetFilesize(5000, 'kbps')">5000 kbps (高清)</button>
+                            <button class="preset-btn" onclick="setPresetFilesize(8000, 'kbps')">8000 kbps (全高清)</button>
+                            <button class="preset-btn" onclick="setPresetFilesize(5, 'Mbps')">5 Mbps (4K)</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>视频时长</label>
+                        <div class="duration-fields">
+                            <input type="number" id="fs-hours" placeholder="时" min="0" oninput="calculateFilesize()">
+                            <span>时</span>
+                            <input type="number" id="fs-minutes" placeholder="分" min="0" max="59" oninput="calculateFilesize()">
+                            <span>分</span>
+                            <input type="number" id="fs-seconds" placeholder="秒" min="0" max="59" oninput="calculateFilesize()">
+                            <span>秒</span>
+                        </div>
+                    </div>
+                    <div class="error-msg" id="fs-error"></div>
+                </div>
+
+                <!-- 模式3：计算时长 -->
+                <div id="mode-duration" class="mode-content" style="display:none">
+                    <div class="input-group">
+                        <label>视频文件大小</label>
+                        <div class="input-row">
+                            <input type="number" id="dur-filesize" placeholder="如 500" min="0.1" step="0.1" oninput="calculateDuration()">
+                            <select class="unit-select" id="dur-filesize-unit" onchange="calculateDuration()">
+                                <option value="MB">MB</option>
+                                <option value="GB">GB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>视频码率</label>
+                        <div class="input-row">
+                            <input type="number" id="dur-bitrate" placeholder="如 5000" min="1" step="1" oninput="calculateDuration()">
+                            <select class="unit-select" id="dur-bitrate-unit" onchange="calculateDuration()">
+                                <option value="kbps">kbps</option>
+                                <option value="Mbps">Mbps</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="error-msg" id="dur-error"></div>
+                </div>
+            </div>
+
+            <div class="result-area" id="result-area">
+                <div class="result-main">
+                    <span class="result-value" id="result-value">—</span>
+                    <span class="result-unit" id="result-unit"></span>
+                </div>
+                <div class="result-detail" id="result-detail"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 平台参考表 -->
+    <section class="reference-section">
+        <div class="container">
+            <h2 class="section-title">各平台推荐视频码率参考</h2>
+            <div class="ref-table-wrap">
+                <table class="ref-table">
+                    <thead>
+                        <tr>
+                            <th>平台</th>
+                            <th>分辨率</th>
+                            <th>推荐视频码率</th>
+                            <th>推荐音频码率</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>哔哩哔哩 (B站)</td><td>1080p</td><td>6000 kbps</td><td>320 kbps</td></tr>
+                        <tr><td>哔哩哔哩 (B站)</td><td>4K</td><td>20000 kbps</td><td>320 kbps</td></tr>
+                        <tr><td>抖音</td><td>1080p</td><td>3000~6000 kbps</td><td>128 kbps</td></tr>
+                        <tr><td>微信视频号</td><td>1080p</td><td>4000~8000 kbps</td><td>128 kbps</td></tr>
+                        <tr><td>YouTube</td><td>1080p</td><td>8000 kbps (H.264)</td><td>384 kbps</td></tr>
+                        <tr><td>YouTube</td><td>4K</td><td>35000~45000 kbps</td><td>384 kbps</td></tr>
+                        <tr><td>小红书</td><td>1080p</td><td>3000~5000 kbps</td><td>128 kbps</td></tr>
+                        <tr><td>快手</td><td>1080p</td><td>3000~6000 kbps</td><td>128 kbps</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align:center;color:#999;font-size:13px;margin-top:20px;">* 以上为推荐值，实际各平台会二次压缩，建议用略高于推荐值的码率上传以保留画质。</p>
+        </div>
+    </section>
+
+    <!-- 公式说明 -->
+    <section class="formula-section">
+        <div class="container">
+            <h2 class="section-title">计算公式</h2>
+            <div class="formula-box">
+                <h3>核心公式</h3>
+                <div class="formula">码率 = 文件大小 × 8192 ÷ 时长</div>
+                <div class="formula-note">
+                    <p><strong>单位换算说明：</strong></p>
+                    <p>• 1 MB = 1024 KB = 8192 kb（因为 1 Byte = 8 bit）</p>
+                    <p>• 码率单位 kbps = 千比特/秒（kilobits per second）</p>
+                    <p>• 时长单位：秒</p>
+                </div>
+            </div>
+            <div class="formula-box">
+                <h3>举例</h3>
+                <p style="margin-bottom:8px;">一段 500 MB、时长 10 分钟（600 秒）的视频：</p>
+                <div class="formula">500 × 8192 ÷ 600 ≈ 6827 kbps</div>
+                <div class="formula-note">换算成 Mbps：6827 ÷ 1000 ≈ <strong>6.8 Mbps</strong></div>
+            </div>
+            <div class="formula-box">
+                <h3>反向公式</h3>
+                <p style="margin-bottom:8px;"><strong>算文件大小：</strong></p>
+                <div class="formula">文件大小(MB) = 码率(kbps) × 时长(秒) ÷ 8192</div>
+                <p style="margin:16px 0 8px;"><strong>算时长：</strong></p>
+                <div class="formula">时长(秒) = 文件大小(MB) × 8192 ÷ 码率(kbps)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <div class="faq-list">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>上传抖音的视频码率多少合适？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">抖音 1080p 视频推荐码率 3000~6000 kbps，音频 128 kbps。但抖音会二次压缩，建议上传时用接近上限的 6000 kbps 保留画质冗余。低于 3000 kbps 会出现明显色块，高于 8000 kbps 没意义（平台会压回去）。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>视频码率（比特率）到底是什么意思？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">码率是视频每秒传输的数据量，单位通常为 kbps（千比特/秒）或 Mbps（兆比特/秒）。码率越高画质越好、文件越大，是画质和体积之间的核心权衡参数。1080p 视频一般建议 4000~8000 kbps，4K 建议 15000~45000 kbps。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>500MB 的视频 10 分钟，码率是多少？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">约 6827 kbps，换算成 6.8 Mbps。计算公式：码率 = 文件大小(MB) × 8192 ÷ 时长(秒)。500 × 8192 ÷ 600 ≈ 6827 kbps。这个码率对 1080p 视频属于中等偏上画质。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>CBR 和 VBR 选哪个好？有什么区别？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">存储和上传选 VBR（可变码率），直播推流选 CBR（固定码率）。VBR 根据画面复杂度动态分配数据，复杂画面给多、简单画面给少，同样画质下文件更小；CBR 全程统一码率，文件大小可预测，直播稳定性更好。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>B 站、YouTube、视频号分别要多少码率？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">B 站 1080p 用 6000 kbps、4K 用 20000 kbps；YouTube 1080p 用 8000 kbps（H.264）、4K 用 35000~45000 kbps；微信视频号 1080p 用 4000~8000 kbps；抖音、快手、小红书 1080p 用 3000~6000 kbps。YouTube 码率要求最高，国内平台码率上限普遍较低。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>码率和分辨率是什么关系？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">分辨率决定画面像素数（如 1920×1080），码率决定每个像素分到多少数据。高分辨率配低码率会模糊，低分辨率配高码率清晰但浪费空间。一般分辨率越高所需码率越大，1080p 配 4000~8000 kbps、4K 配 15000~45000 kbps 是合理区间。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>为什么算出来的码率和实际文件信息不一样？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">本计算器算的是"视频+音频总码率"。用 FFmpeg 或 MediaInfo 查看时可能只显示视频流码率（不含音频）。另外视频文件还包含容器封装开销（metadata、字幕等），实际可用码率会略低于理论值，误差通常在 5% 以内。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>这个码率计算器要联网吗？会上传数据吗？</span><span class="faq-arrow">▼</span></div>
+                    <div class="faq-answer">不需要联网，所有计算在浏览器本地完成，不收集任何数据。完全免费，无需注册，可离线使用，无限次使用。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 汤圆知识树屋 · <a href="/tool/" style="color:#999;text-decoration:none;">更多工具</a></p>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p>
+    </footer>
+
+    <script>
+        var currentMode = 'bitrate';
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-tab').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelector('[data-mode="' + mode + '"]').classList.add('active');
+            document.querySelectorAll('.mode-content').forEach(function(c) { c.style.display = 'none'; });
+            document.getElementById('mode-' + mode).style.display = 'block';
+            document.getElementById('result-area').classList.remove('visible');
+            document.querySelectorAll('.error-msg').forEach(function(e) { e.classList.remove('visible'); e.textContent = ''; });
+        }
+
+        function getDurationSec(hId, mId, sId) {
+            var h = parseFloat(document.getElementById(hId).value) || 0;
+            var m = parseFloat(document.getElementById(mId).value) || 0;
+            var s = parseFloat(document.getElementById(sId).value) || 0;
+            return h * 3600 + m * 60 + s;
+        }
+
+        function formatDuration(totalSec) {
+            if (totalSec <= 0) return '0秒';
+            var h = Math.floor(totalSec / 3600);
+            var m = Math.floor((totalSec % 3600) / 60);
+            var s = Math.round(totalSec % 60);
+            var parts = [];
+            if (h > 0) parts.push(h + '小时');
+            if (m > 0) parts.push(m + '分钟');
+            if (s > 0 || parts.length === 0) parts.push(s + '秒');
+            return parts.join('');
+        }
+
+        function showError(id, msg) {
+            var el = document.getElementById(id);
+            el.textContent = msg;
+            el.classList.add('visible');
+            document.getElementById('result-area').classList.remove('visible');
+        }
+
+        function clearError(id) {
+            var el = document.getElementById(id);
+            el.classList.remove('visible');
+            el.textContent = '';
+        }
+
+        // 模式1：计算码率
+        function calculateBitrate() {
+            clearError('br-error');
+            var size = parseFloat(document.getElementById('br-filesize').value);
+            var unit = document.getElementById('br-filesize-unit').value;
+            var sec = getDurationSec('br-hours', 'br-minutes', 'br-seconds');
+
+            if (isNaN(size) || size <= 0) { return; }
+            if (sec <= 0) { return; }
+
+            var sizeKb;
+            if (unit === 'GB') {
+                sizeKb = size * 1024 * 1024 * 8; // GB → kb
+            } else {
+                sizeKb = size * 1024 * 8; // MB → kb
+            }
+
+            var bitrateKbps = sizeKb / sec;
+            var bitrateMbps = bitrateKbps / 1000;
+
+            document.getElementById('result-value').textContent = formatNum(bitrateKbps, 0);
+            document.getElementById('result-unit').textContent = 'kbps';
+            document.getElementById('result-detail').innerHTML =
+                '≈ <strong>' + formatNum(bitrateMbps, 2) + ' Mbps</strong> &nbsp;|&nbsp; '
+                + '总数据量：<code>' + formatNum(sizeKb / 8 / 1024, 2) + ' MB</code> &nbsp;|&nbsp; '
+                + '时长：<code>' + formatDuration(sec) + '</code>';
+            document.getElementById('result-area').classList.add('visible');
+        }
+
+        // 模式2：计算文件大小
+        function calculateFilesize() {
+            clearError('fs-error');
+            var bitrate = parseFloat(document.getElementById('fs-bitrate').value);
+            var brUnit = document.getElementById('fs-bitrate-unit').value;
+            var sec = getDurationSec('fs-hours', 'fs-minutes', 'fs-seconds');
+
+            if (isNaN(bitrate) || bitrate <= 0) { return; }
+            if (sec <= 0) { return; }
+
+            var bitrateKbps = brUnit === 'Mbps' ? bitrate * 1000 : bitrate;
+            var sizeMB = (bitrateKbps * sec) / 8192;
+            var sizeGB = sizeMB / 1024;
+
+            if (sizeGB >= 1) {
+                document.getElementById('result-value').textContent = formatNum(sizeGB, 2);
+                document.getElementById('result-unit').textContent = 'GB';
+            } else {
+                document.getElementById('result-value').textContent = formatNum(sizeMB, 1);
+                document.getElementById('result-unit').textContent = 'MB';
+            }
+            document.getElementById('result-detail').innerHTML =
+                '≈ <strong>' + formatNum(sizeMB, 1) + ' MB</strong> &nbsp;|&nbsp; '
+                + '码率：<code>' + formatNum(bitrateKbps, 0) + ' kbps</code> &nbsp;|&nbsp; '
+                + '时长：<code>' + formatDuration(sec) + '</code>';
+            document.getElementById('result-area').classList.add('visible');
+        }
+
+        // 模式3：计算时长
+        function calculateDuration() {
+            clearError('dur-error');
+            var size = parseFloat(document.getElementById('dur-filesize').value);
+            var sizeUnit = document.getElementById('dur-filesize-unit').value;
+            var bitrate = parseFloat(document.getElementById('dur-bitrate').value);
+            var brUnit = document.getElementById('dur-bitrate-unit').value;
+
+            if (isNaN(size) || size <= 0) { return; }
+            if (isNaN(bitrate) || bitrate <= 0) { return; }
+
+            var bitrateKbps = brUnit === 'Mbps' ? bitrate * 1000 : bitrate;
+            var sizeKb;
+            if (sizeUnit === 'GB') {
+                sizeKb = size * 1024 * 1024 * 8;
+            } else {
+                sizeKb = size * 1024 * 8;
+            }
+
+            var sec = sizeKb / bitrateKbps;
+
+            document.getElementById('result-value').textContent = formatDuration(sec);
+            document.getElementById('result-unit').textContent = '';
+            document.getElementById('result-detail').innerHTML =
+                '≈ <strong>' + formatNum(sec, 0) + ' 秒</strong> &nbsp;|&nbsp; '
+                + '码率：<code>' + formatNum(bitrateKbps, 0) + ' kbps</code> &nbsp;|&nbsp; '
+                + '数据量：<code>' + formatNum(sizeKb / 8 / 1024, 2) + ' MB</code>';
+            document.getElementById('result-area').classList.add('visible');
+        }
+
+        function setPresetFilesize(val, unit) {
+            document.getElementById('fs-bitrate').value = val;
+            document.getElementById('fs-bitrate-unit').value = unit;
+            calculateFilesize();
+        }
+
+        function formatNum(n, decimals) {
+            return n.toLocaleString('zh-CN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        }
+
+        function toggleFaq(item) {
+            var answer = item.querySelector('.faq-answer');
+            var arrow = item.querySelector('.faq-arrow');
+            answer.classList.toggle('active');
+            arrow.classList.toggle('rotate');
+        }
+
+        function toggleMenu() {
+            var btn = document.getElementById('hamburger');
+            var menu = document.getElementById('mobileMenu');
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+    </script>
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</body>
+</html>

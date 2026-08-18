@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI视频分段工具 - 汤圆知识树屋</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta name="description" content="AI视频分段工具——智能识别视频内容，按主题自动分段，生成字幕文件，让长视频整理效率提升10倍。免费下载。">
+    <meta property="og:title" content="AI视频分段工具 - 汤圆知识树屋">
+    <meta property="og:description" content="智能识别视频内容，按主题自动分段，生成字幕文件。免费下载，即解压即用。">
+    <meta property="og:url" content="https://tangyuanzhp.top/tool/video-segmenter/">
+    <meta property="og:type" content="website">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "怎么把一节 2 小时的网课视频按知识点自动切分成小段？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "用 AI 视频分段工具。它先用 Whisper 把视频语音转成带时间戳的字幕，再调用通义千问分析字幕内容，识别主题切换点，在语义完整位置自动切分。每段会生成独立的 mp4 片段、srt 字幕、内容摘要，2 小时视频约需 20-40 分钟处理完。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "AI 视频分段和手动按时间切分有什么区别？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "手动切分按固定时长（如每 5 分钟一段），切点可能在句子中间，破坏内容连贯性。AI 分段是按语义切，识别「这里讲完一个知识点了」才切，每段内容完整、主题清晰，还附带摘要。对知识付费、课程剪辑场景，AI 分段完胜手动。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "这个工具为什么要配置通义千问 API Key？收费吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "主题分析依赖通义千问大模型理解字幕内容，所以需要 API Key。可以访问通义千问控制台获取，新用户有免费额度（足够处理几十小时视频），超出后按量计费，1 小时视频分析成本约 0.1-0.3 元。Whisper 语音识别在本地运行，不消耗 API。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "分段后的视频怎么导入剪映或 PR？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "工具会同时输出三种文件：①独立 mp4 片段（直接拖进任何剪辑软件）；②srt 字幕文件（剪映直接导入字幕轨道）；③FCP XML 时间线（PR/达芬奇/FCP 可导入完整时间线结构）。剪映用户建议用前两种。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1 小时的直播回放，AI 分段需要多久？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "用 Whisper base 模型，1 小时视频约需 10-20 分钟。如果有 NVIDIA 显卡（CUDA 加速），可缩短到 5-8 分钟。处理时间主要花在语音识别，主题分析是秒级返回。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "分段的切点准不准？会不会把一句话从中间切断？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "工具在识别主题切换点后，会回溯到最近的「语义停顿位置」（句号、问号、较长沉默）才切，不会从句子中间断开。准确率约 85-92%，少数情况下需要手动微调切点。处理完会生成 SEGMENTS.md 文档，可以一眼看到每段主题，方便核对。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "这个工具能在 Mac 上用吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "目前只支持 Windows 10/11。Mac 用户需要手动安装 Python 3 和依赖（Whisper、FFmpeg、OpenCV），技术门槛较高。建议 Mac 用户先用网页版 Whisper 服务转字幕，再手动分段。"
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+
+        /* 面包屑 */
+        .breadcrumb {
+            padding: 90px 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { color: #aaa; font-size: 14px; }
+        
+        /* Hero 区域 */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+            color: #fff;
+            padding: 40px 20px 100px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #aaa;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 15px 40px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+        .hero-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        
+        /* 三步上手 */
+        .steps {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #000;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .step {
+            text-align: center;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .step p { color: #666; }
+        
+        /* 截图展示 */
+        .screenshots {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .screenshot-item {
+            background: #f5f5f5;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .screenshot-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            background: #e5e5e5;
+            display: block;
+            cursor: zoom-in;
+        }
+        .screenshot-item p {
+            padding: 15px 20px;
+            text-align: center;
+            color: #666;
+            margin-top: auto;
+        }
+        
+        /* 核心功能 */
+        .features {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .feature-card p { color: #666; }
+        
+        /* 工作流程 */
+        .workflow {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .workflow-steps {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .workflow-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+        }
+        .workflow-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .workflow-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .workflow-content p {
+            color: #666;
+            font-size: 14px;
+        }
+        .workflow-content .tech-tag {
+            display: inline-block;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        
+        /* 输出示例 */
+        .output {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+        .output-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        .output-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .output-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .output-item h4 {
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 5px;
+        }
+        .output-item p {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .faq-question {
+            background: #fff;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .faq-question:hover { background: #f0f0f0; }
+        .faq-answer {
+            background: #fff;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+        .faq-arrow {
+            transition: transform 0.3s;
+        }
+        .faq-arrow.rotate { transform: rotate(180deg); }
+        
+        /* 系统要求 */
+        .requirements {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            text-align: center;
+        }
+        .requirements h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        .req-list {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #111;
+            color: #666;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        /* 图片放大预览 - Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.95);
+        }
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+        /* 汉堡菜单 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 54px;
+            left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 99;
+            padding: 10px 0 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 32px; }
+            .screenshot-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links">
+                <a href="/">首页</a>
+                <a href="/tool/">导航</a>
+                <a href="/blog/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">首页</a>
+        <a href="/tool/">导航</a>
+        <a href="/blog/">文章</a>
+        <a href="/about/">关于</a>
+    </div>
+    
+    <!-- 面包屑 -->
+    <div class="breadcrumb">
+        <a href="/">首页</a> <span>/</span> <a href="/tool/">导航</a> <span>/</span> AI视频分段工具
+    </div>
+
+    <!-- Hero 区域 -->
+    <section class="hero" id="download">
+        <h1>AI视频分段工具</h1>
+        <p>智能识别视频内容，按主题自动分段，让长视频整理效率提升 10 倍</p>
+        <a href="https://pan.quark.cn/s/446d2c11bcdd" class="btn-primary" target="_blank">免费下载</a>
+        <p class="hero-note">下载前请先阅读使用说明，需配置通义千问 API Key</p>
+    </section>
+    
+    <!-- Hero 区域 -->
+    <section class="screenshots" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">界面预览</h2>
+            <div class="screenshot-single" style="max-width: 800px; margin: 0 auto;">
+                <div class="screenshot-item" style="box-shadow: 0 5px 30px rgba(0,0,0,0.15);">
+                    <img src="/tools/video-segmenter/screenshots/ui_main.png" alt="AI视频分段工具主界面" onclick="openLightbox(this)">
+                    <p>简洁直观的 Web 操作界面</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 核心功能 -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">核心功能</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>语音识别</h3>
+                    <p>使用 Whisper 模型将视频音频转换为带时间戳的文本</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>主题分析</h3>
+                    <p>调用通义千问 API 分析内容结构，识别主题切换点</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>智能分段</h3>
+                    <p>按语义完整位置分段，确保每个片段内容连贯</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>内容摘要</h3>
+                    <p>为每个片段生成主题、内容摘要和重点备注</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>字幕生成</h3>
+                    <p>生成独立的 SRT 字幕文件，可导入剪映</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 工作流程 -->
+    <section class="workflow">
+        <div class="container">
+            <h2 class="section-title">技术流程</h2>
+            <div class="workflow-steps">
+                <div class="workflow-item">
+                    <div class="workflow-num">1</div>
+                    <div class="workflow-content">
+                        <h3>语音识别</h3>
+                        <p>使用 Whisper 模型将视频中的语音转换为带时间戳的文本字幕</p>
+                        <span class="tech-tag">Whisper</span>
+                    </div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-num">2</div>
+                    <div class="workflow-content">
+                        <h3>主题分析</h3>
+                        <p>调用通义千问 API，分析字幕内容识别主题切换点和自然分段位置</p>
+                        <span class="tech-tag">通义千问 API</span>
+                    </div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-num">3</div>
+                    <div class="workflow-content">
+                        <h3>视频裁剪</h3>
+                        <p>按分段点使用 FFmpeg 精确裁剪视频，生成独立片段</p>
+                        <span class="tech-tag">FFmpeg</span>
+                    </div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-num">4</div>
+                    <div class="workflow-content">
+                        <h3>字幕提取</h3>
+                        <p>从原始字幕中提取对应时间轴的字幕片段，保持同步</p>
+                        <span class="tech-tag">SRT 字幕</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 输出示例 -->
+    <section class="output">
+        <div class="container">
+            <h2 class="section-title">输出文件</h2>
+            <div class="output-grid">
+                <div class="output-item">
+                    <div class="output-icon"></div>
+                    <h4>segment_01.mp4</h4>
+                    <p>视频片段文件</p>
+                </div>
+                <div class="output-item">
+                    <div class="output-icon"></div>
+                    <h4>segment_01.srt</h4>
+                    <p>同步字幕文件</p>
+                </div>
+                <div class="output-item">
+                    <div class="output-icon"></div>
+                    <h4>SEGMENTS.md</h4>
+                    <p>分段说明文档</p>
+                </div>
+                <div class="output-item">
+                    <div class="output-icon"></div>
+                    <h4>segments_data.json</h4>
+                    <p>JSON 格式数据</p>
+                </div>
+                <div class="output-item">
+                    <div class="output-icon"></div>
+                    <h4>*_timeline.xml</h4>
+                    <p>FCP/达芬奇时间线</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 适用场景 -->
+    <section class="scenarios" style="padding: 80px 20px; background: #fff;">
+        <div class="container">
+            <h2 class="section-title">适用场景</h2>
+            <div class="scenario-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px; margin: 0 auto;">
+                <div class="scenario-item">✅ 课程视频整理</div>
+                <div class="scenario-item">✅ 直播回放剪辑</div>
+                <div class="scenario-item">✅ 采访视频处理</div>
+                <div class="scenario-item">✅ 会议录像整理</div>
+                <div class="scenario-item">✅ 知识付费内容制作</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>怎么把一节 2 小时的网课视频按知识点自动切分成小段？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        用 AI 视频分段工具。它先用 Whisper 把视频语音转成带时间戳的字幕，再调用通义千问分析字幕内容，识别主题切换点，在语义完整位置自动切分。每段会生成独立的 mp4 片段、srt 字幕、内容摘要，2 小时视频约需 20-40 分钟处理完。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>AI 视频分段和手动按时间切分有什么区别？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        手动切分按固定时长（如每 5 分钟一段），切点可能在句子中间，破坏内容连贯性。AI 分段是按语义切，识别「这里讲完一个知识点了」才切，每段内容完整、主题清晰，还附带摘要。对知识付费、课程剪辑场景，AI 分段完胜手动。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>这个工具为什么要配置通义千问 API Key？收费吗？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        主题分析依赖通义千问大模型理解字幕内容，所以需要 API Key。可以访问 <a href="https://dashscope.console.aliyun.com/" target="_blank">通义千问控制台</a> 获取，新用户有免费额度（足够处理几十小时视频），超出后按量计费，1 小时视频分析成本约 0.1-0.3 元。Whisper 语音识别在本地运行，不消耗 API。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>分段后的视频怎么导入剪映或 PR？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        工具会同时输出三种文件：①独立 mp4 片段（直接拖进任何剪辑软件）；②srt 字幕文件（剪映直接导入字幕轨道）；③FCP XML 时间线（PR/达芬奇/FCP 可导入完整时间线结构）。剪映用户建议用前两种。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>1 小时的直播回放，AI 分段需要多久？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        用 Whisper base 模型，1 小时视频约需 10-20 分钟。如果有 NVIDIA 显卡（CUDA 加速），可缩短到 5-8 分钟。处理时间主要花在语音识别，主题分析是秒级返回。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>分段的切点准不准？会不会把一句话从中间切断？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        工具在识别主题切换点后，会回溯到最近的「语义停顿位置」（句号、问号、较长沉默）才切，不会从句子中间断开。准确率约 85-92%，少数情况下需要手动微调切点。处理完会生成 SEGMENTS.md 文档，可以一眼看到每段主题，方便核对。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>这个工具能在 Mac 上用吗？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        目前只支持 Windows 10/11。Mac 用户需要手动安装 Python 3 和依赖（Whisper、FFmpeg、OpenCV），技术门槛较高。建议 Mac 用户先用网页版 Whisper 服务转字幕，再手动分段。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 系统要求 -->
+    <section class="requirements">
+        <h2>系统要求</h2>
+        <div class="req-list">
+            <div class="req-item">Windows 10 / 11</div>
+            <div class="req-item">5GB 可用空间（模型）</div>
+            <div class="req-item">8GB 内存推荐</div>
+            <div class="req-item">网络连接（API调用）</div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2026 汤圆知识树屋</p>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('.faq-arrow');
+            answer.classList.toggle('active');
+            arrow.classList.toggle('rotate');
+        }
+
+        function openLightbox(img) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = img.src;
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleMenu() {
+            var btn = document.getElementById('hamburger');
+            var menu = document.getElementById('mobileMenu');
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var lb = document.getElementById('lightbox');
+            if (lb) {
+                lb.addEventListener('click', function(e) {
+                    if (e.target === lb) closeLightbox();
+                });
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+
+    <!-- 图片放大预览 -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div style="text-align:center;color:#aaa;margin-top:15px;font-size:14px;">点击空白处或按 ESC 键关闭</div>
+    </div>
+
+    <!-- 百度统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</body>
+</html>

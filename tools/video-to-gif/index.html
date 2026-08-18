@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频转GIF - 在线免费视频转GIF动图 | 汤圆知识树屋</title>
+    <meta name="description" content="免费在线视频转GIF工具。纯前端本地转换，不上传服务器，保护隐私。支持截取片段、调节帧率、缩放尺寸，一键下载高质量GIF动图。">
+    <meta name="keywords" content="视频转GIF,视频转动图,在线视频转gif,MP4转gif,视频制作gif,免费视频转gif工具,动图制作">
+    <link rel="canonical" href="https://tangyuanzhp.top/tool/video-to-gif/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta property="og:title" content="视频转GIF - 在线免费视频转GIF动图 | 汤圆知识树屋">
+    <meta property="og:description" content="免费在线视频转GIF工具，纯前端本地转换，不上传服务器。支持截取片段、调节帧率、缩放尺寸。">
+    <meta property="og:url" content="https://tangyuanzhp.top/tool/video-to-gif/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="汤圆知识树屋">
+    <meta property="og:locale" content="zh_CN">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "视频转GIF",
+      "description": "免费在线视频转GIF动图工具，纯前端本地转换，不上传服务器，保护隐私。支持截取片段、调节帧率、缩放尺寸。",
+      "url": "https://tangyuanzhp.top/tool/video-to-gif/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "视频转 GIF 怎么不模糊？关键参数怎么设置？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "控制三个参数：①帧率 10-15 FPS（够流畅且不过大）；②宽度 400-500px（社交媒体够用）；③时长 3-5 秒（GIF 不适合长内容）。GIF 格式本身只支持 256 色，无法做到视频级画质，但参数设对了视觉上不会糊。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "视频转 GIF 文件太大怎么压缩？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "四个手段：①降帧率到 8-10 FPS；②缩宽度到 300-400px；③缩短时长到 3 秒内；④确保工具用了 256 色调色板（本工具自动处理）。GIF 估算公式：文件大小 ≈ 帧数 × 宽 × 高 × 0.2 字节，3 秒 10FPS 400×225 约 540KB。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "视频转 GIF 会把视频传到服务器吗？隐私安全吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不会上传。这个工具所有处理在浏览器本地完成，视频文件不离开你的电脑，适合处理隐私视频、商业素材、敏感内容。处理完关闭网页即清空，无任何残留。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "微信、微博、表情包场景，GIF 参数怎么选？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "微信/公众号：帧率 8-10 FPS，宽度 300-400px，时长 2-5 秒，目标小于 2MB；微博/推特：帧率 10-15 FPS，宽度 400-500px，时长 3-8 秒；表情包：帧率 8-10 FPS，宽度 200-300px，时长 1-3 秒；文档/PPT 嵌入：帧率 6-8 FPS，宽度 400-600px。场景越小，参数越保守，文件越小。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "视频转 GIF 支持哪些视频格式？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "取决于浏览器。Chrome/Edge 支持 MP4、WebM、OGG；Safari 支持 MP4；Firefox 支持 WebM、OGG。推荐用 MP4（H.264 编码），所有浏览器都兼容，转换最稳定。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "4K 视频转 GIF 要多久？会很慢吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "4K 视频转 GIF 会显著变慢，3-5 秒片段可能需要 1-3 分钟。建议先把视频降到 1080p 或 720p 再转。可以用码率计算器先确认视频参数，分辨率太高先压缩。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "GIF 和视频动图（WebP/MP4）哪个好？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GIF 兼容性最好（所有平台、所有文档都支持），但压缩率最差、色彩只有 256 色。如果目标是网页嵌入，WebP 动图体积小 50-70% 且支持全彩；如果目标是社交分享，MP4 短视频更清晰。GIF 适合表情包、文档插图、即时通讯场景。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "这个视频转 GIF 工具收费吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "完全免费，无需注册，无限次使用，纯前端处理不收集数据。"
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; display: flex; flex-direction: column; min-height: 100vh; }
+        body > * { flex-shrink: 0; } body > footer { margin-top: auto; }
+        nav { background: #000; padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #aaa; text-decoration: none; margin-left: 30px; transition: color 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .breadcrumb { padding: 90px 20px 0; max-width: 1200px; margin: 0 auto; }
+        .breadcrumb a { color: #666; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { color: #aaa; font-size: 14px; }
+        .hero { background: #000; color: #fff; padding: 50px 20px 80px; text-align: center; }
+        .hero h1 { font-size: 42px; margin-bottom: 16px; font-weight: 700; }
+        .hero p { font-size: 18px; color: #aaa; max-width: 600px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-title { text-align: center; font-size: 30px; margin-bottom: 40px; color: #000; }
+        .tool-section { padding: 60px 20px; background: #fff; }
+        .tool-card { max-width: 760px; margin: 0 auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden; }
+        .tool-body { padding: 32px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+        .file-drop { border: 2px dashed #ccc; border-radius: 12px; padding: 36px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa; }
+        .file-drop:hover { border-color: #000; background: #f5f5f5; }
+        .file-drop.has-file { border-color: #27ae60; background: #f0faf4; }
+        .file-drop p { color: #888; font-size: 15px; }
+        .file-drop p strong { color: #333; }
+        .file-drop .file-name { color: #27ae60; font-weight: 600; font-size: 14px; margin-top: 6px; display: none; }
+        .file-drop.has-file .file-name { display: block; }
+        .file-drop.has-file .drop-hint { display: none; }
+        .video-preview { text-align: center; margin: 16px 0; display: none; }
+        .video-preview video { max-width: 100%; max-height: 280px; border-radius: 10px; background: #000; }
+        .settings-row { display: flex; gap: 16px; flex-wrap: wrap; }
+        .settings-row > div { flex: 1; min-width: 140px; }
+        .settings-row input[type="range"] { width: 100%; margin-top: 4px; }
+        .settings-row input[type="number"] { width: 100%; padding: 10px 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; outline: none; transition: border-color 0.2s; }
+        .settings-row input:focus { border-color: #000; }
+        .range-label { display: flex; justify-content: space-between; font-size: 13px; color: #666; }
+        .btn { padding: 14px 28px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: #000; color: #fff; }
+        .btn-primary:hover { background: #333; }
+        .btn-secondary { background: #f0f0f0; color: #333; }
+        .btn-secondary:hover { background: #e0e0e0; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-converting { background: #2196F3; color: #fff; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .action-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .progress-bar { margin-top: 16px; background: #eee; border-radius: 10px; height: 8px; overflow: hidden; display: none; }
+        .progress-fill { height: 100%; background: #2196F3; border-radius: 10px; width: 0; transition: width 0.3s; }
+        .progress-text { font-size: 13px; color: #666; text-align: center; margin-top: 6px; display: none; }
+        .result-area { background: #f0faf4; border: 1px solid #a3e4bc; border-radius: 12px; padding: 20px; text-align: center; margin-top: 20px; display: none; }
+        .result-area img { max-width: 100%; max-height: 300px; border-radius: 8px; }
+        .result-info { font-size: 14px; color: #666; margin-top: 10px; }
+        .error-msg { color: #e74c3c; font-size: 13px; margin-top: 4px; display: none; }
+        .error-msg.visible { display: block; }
+        .formula-section { padding: 60px 20px; background: #f5f5f5; }
+        .formula-box { max-width: 700px; margin: 0 auto 24px; background: #fff; border-radius: 12px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .formula-box h3 { font-size: 18px; margin-bottom: 12px; color: #000; }
+        .formula-box ol, .formula-box ul { padding-left: 20px; color: #555; line-height: 2; }
+        .faq-section { padding: 60px 20px; background: #fff; }
+        .faq-list { max-width: 760px; margin: 0 auto; }
+        .faq-item { margin-bottom: 12px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .faq-question { background: #fff; padding: 18px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 15px; transition: background 0.2s; }
+        .faq-question:hover { background: #f0f0f0; }
+        .faq-answer { background: #fff; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; font-size: 14px; color: #666; line-height: 1.8; }
+        .faq-answer.active { padding: 18px 20px; max-height: 500px; }
+        .faq-arrow { transition: transform 0.3s; }
+        .faq-arrow.rotate { transform: rotate(180deg); }
+        footer { background: #111; color: #666; text-align: center; padding: 30px 20px; font-size: 14px; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 54px; left: 0; width: 100%; background: #000; z-index: 99; padding: 10px 0 20px; border-top: 1px solid #222; }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a { display: block; color: #aaa; text-decoration: none; padding: 12px 20px; font-size: 16px; transition: color 0.3s; }
+        .mobile-menu a:hover { color: #fff; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; } .hamburger { display: flex; }
+            .hero h1 { font-size: 28px; } .hero p { font-size: 15px; }
+            .settings-row { flex-direction: column; }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links"><a href="/">首页</a><a href="/tool/">导航</a><a href="/blog/">文章</a><a href="/about/">关于</a></div>
+            <button class="hamburger" id="hamburger" aria-label="菜单" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu"><a href="/">首页</a><a href="/tool/">导航</a><a href="/blog/">文章</a><a href="/about/">关于</a></div>
+
+    <div class="breadcrumb"><a href="/">首页</a> <span>/</span> <a href="/tool/">导航</a> <span>/</span> 视频转GIF</div>
+
+    <section class="hero">
+        <h1>视频转 GIF</h1>
+        <p>纯前端本地转换，视频不上传服务器。截取精彩片段，生成高质量 GIF 动图。支持调节帧率、缩放尺寸、选择片段时长。</p>
+    </section>
+
+    <section class="tool-section">
+        <div class="tool-card">
+            <div class="tool-body">
+                <div class="input-group">
+                    <label>选择视频文件</label>
+                    <div class="file-drop" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                        <p class="drop-hint">点击选择或拖拽视频文件（MP4/WebM/MOV 等）</p>
+                        <p class="file-name" id="fileName"></p>
+                    </div>
+                    <input type="file" id="fileInput" accept="video/*" style="display:none" onchange="handleFile(this)">
+                </div>
+
+                <div class="video-preview" id="videoPreview">
+                    <video id="video" controls crossorigin="anonymous" style="max-width:100%;max-height:280px;border-radius:10px;"></video>
+                </div>
+
+                <div id="settingsArea" style="display:none;">
+                    <div class="settings-row">
+                        <div>
+                            <label>片段时长</label>
+                            <input type="range" id="durationRange" min="1" max="10" value="3" step="0.5" oninput="updateDurationLabel()">
+                            <div class="range-label"><span>1秒</span><span id="durationLabel">3秒</span><span>10秒</span></div>
+                        </div>
+                        <div>
+                            <label>帧率 (FPS)</label>
+                            <input type="range" id="fpsRange" min="5" max="20" value="10" step="1" oninput="updateFpsLabel()">
+                            <div class="range-label"><span>5</span><span id="fpsLabel">10</span><span>20</span></div>
+                        </div>
+                    </div>
+                    <div class="settings-row" style="margin-top:12px;">
+                        <div>
+                            <label>最大宽度 (px)</label>
+                            <input type="range" id="widthRange" min="200" max="600" value="400" step="50" oninput="updateWidthLabel()">
+                            <div class="range-label"><span>200</span><span id="widthLabel">400</span><span>600</span></div>
+                        </div>
+                        <div>
+                            <label>起始位置</label>
+                            <input type="range" id="startRange" min="0" max="100" value="0" step="1" oninput="updateStartLabel()">
+                            <div class="range-label"><span id="startLabel">0秒</span><span id="startPercent">0%</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-row" style="margin-top:16px;" id="convertRow" style="display:none;">
+                    <button class="btn btn-primary" id="convertBtn" onclick="startConvert()">开始转换</button>
+                    <button class="btn btn-secondary" onclick="resetAll()">重置</button>
+                </div>
+
+                <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text" id="progressText"></div>
+                <div class="error-msg" id="errorMsg"></div>
+
+                <div class="result-area" id="resultArea">
+                    <img id="resultGif" alt="生成的GIF动图" style="max-width:100%;">
+                    <div class="result-info" id="resultInfo"></div>
+                    <button class="btn btn-primary" style="margin-top:10px;" onclick="downloadGif()">下载 GIF</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="formula-section">
+        <div class="container">
+            <h2 class="section-title">使用说明</h2>
+            <div class="formula-box">
+                <h3>参数建议</h3>
+                <ul>
+                    <li><strong>微信/公众号</strong>：帧率 8~10 FPS，宽度 300~400px，时长 2~5秒，目标大小 &lt;2MB</li>
+                    <li><strong>社交媒体（微博/推）</strong>：帧率 10~15 FPS，宽度 400~500px，时长 3~8秒</li>
+                    <li><strong>表情包</strong>：帧率 8~10 FPS，宽度 200~300px，时长 1~3秒</li>
+                    <li><strong>文档/PPT 嵌入</strong>：帧率 6~8 FPS，宽度 400~600px</li>
+                </ul>
+            </div>
+            <div class="formula-box">
+                <h3>GIF 文件大小估算</h3>
+                <p style="color:#555;line-height:2;">
+                    GIF 文件大小 ≈ 帧数 × 每帧大小<br>
+                    帧数 = 片段时长(秒) × 帧率(FPS)<br>
+                    每帧大小 ≈ 宽度 × 高度 × 0.2 字节（GIF LZW 压缩后估算）<br><br>
+                    <strong>举例：</strong>3秒片段，10 FPS，400×225 尺寸<br>
+                    帧数 = 3 × 10 = 30 帧<br>
+                    每帧 ≈ 400 × 225 × 0.2 ≈ 18 KB<br>
+                    预估大小 ≈ 30 × 18 ≈ 540 KB
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <div class="faq-list">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>视频转 GIF 怎么不模糊？关键参数怎么设置？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">控制三个参数：①帧率 10-15 FPS（够流畅且不过大）；②宽度 400-500px（社交媒体够用）；③时长 3-5 秒（GIF 不适合长内容）。GIF 格式本身只支持 256 色，无法做到视频级画质，但参数设对了视觉上不会糊。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>视频转 GIF 文件太大怎么压缩？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">四个手段：①降帧率到 8-10 FPS；②缩宽度到 300-400px；③缩短时长到 3 秒内；④确保工具用了 256 色调色板（本工具自动处理）。GIF 估算公式：文件大小 ≈ 帧数 × 宽 × 高 × 0.2 字节，3 秒 10FPS 400×225 约 540KB。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>视频转 GIF 会把视频传到服务器吗？隐私安全吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">不会上传。这个工具所有处理在浏览器本地完成，视频文件不离开你的电脑，适合处理隐私视频、商业素材、敏感内容。处理完关闭网页即清空，无任何残留。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>微信、微博、表情包场景，GIF 参数怎么选？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">微信/公众号：帧率 8-10 FPS，宽度 300-400px，时长 2-5 秒，目标小于 2MB；微博/推特：帧率 10-15 FPS，宽度 400-500px，时长 3-8 秒；表情包：帧率 8-10 FPS，宽度 200-300px，时长 1-3 秒；文档/PPT 嵌入：帧率 6-8 FPS，宽度 400-600px。场景越小，参数越保守，文件越小。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>视频转 GIF 支持哪些视频格式？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">取决于浏览器。Chrome/Edge 支持 MP4、WebM、OGG；Safari 支持 MP4；Firefox 支持 WebM、OGG。推荐用 MP4（H.264 编码），所有浏览器都兼容，转换最稳定。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>4K 视频转 GIF 要多久？会很慢吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">4K 视频转 GIF 会显著变慢，3-5 秒片段可能需要 1-3 分钟。建议先把视频降到 1080p 或 720p 再转。可以用码率计算器先确认视频参数，分辨率太高先压缩。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>GIF 和视频动图（WebP/MP4）哪个好？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">GIF 兼容性最好（所有平台、所有文档都支持），但压缩率最差、色彩只有 256 色。如果目标是网页嵌入，WebP 动图体积小 50-70% 且支持全彩；如果目标是社交分享，MP4 短视频更清晰。GIF 适合表情包、文档插图、即时通讯场景。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>这个视频转 GIF 工具收费吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">完全免费，无需注册，无限次使用，纯前端处理不收集数据。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2026 汤圆知识树屋 &middot; <a href="/tool/" style="color:#999;text-decoration:none;">更多工具</a></p><p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p></footer>
+
+    <script>
+        var videoEl = document.getElementById('video');
+        var gifBlob = null;
+
+        function toggleMenu() {
+            document.getElementById('hamburger').classList.toggle('open');
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        function toggleFaq(item) {
+            item.querySelector('.faq-answer').classList.toggle('active');
+            item.querySelector('.faq-arrow').classList.toggle('rotate');
+        }
+
+        function handleFile(input) {
+            var file = input.files[0];
+            if (!file) return;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('dropZone').classList.add('has-file');
+            var url = URL.createObjectURL(file);
+            videoEl.src = url;
+            videoEl.onloadedmetadata = function() {
+                document.getElementById('videoPreview').style.display = 'block';
+                document.getElementById('settingsArea').style.display = 'block';
+                document.getElementById('convertRow').style.display = 'flex';
+                var dur = Math.min(30, Math.floor(videoEl.duration));
+                document.getElementById('durationRange').max = Math.min(10, dur);
+                document.getElementById('startRange').max = Math.max(0, dur - parseFloat(document.getElementById('durationRange').value));
+                updateDurationLabel();
+                updateStartLabel();
+            };
+            document.getElementById('resultArea').style.display = 'none';
+            document.getElementById('errorMsg').classList.remove('visible');
+            gifBlob = null;
+        }
+
+        function updateDurationLabel() {
+            var v = parseFloat(document.getElementById('durationRange').value);
+            document.getElementById('durationLabel').textContent = v + '秒';
+            document.getElementById('startRange').max = Math.max(0, Math.floor(videoEl.duration) - v);
+            updateStartLabel();
+        }
+
+        function updateFpsLabel() {
+            document.getElementById('fpsLabel').textContent = document.getElementById('fpsRange').value;
+        }
+
+        function updateWidthLabel() {
+            document.getElementById('widthLabel').textContent = document.getElementById('widthRange').value;
+        }
+
+        function updateStartLabel() {
+            var v = parseFloat(document.getElementById('startRange').value);
+            document.getElementById('startLabel').textContent = v.toFixed(1) + '秒';
+            var pct = videoEl.duration > 0 ? (v / videoEl.duration * 100).toFixed(0) : 0;
+            document.getElementById('startPercent').textContent = pct + '%';
+        }
+
+        async function startConvert() {
+            if (!videoEl.src || videoEl.readyState < 2) {
+                showError('请先加载视频文件');
+                return;
+            }
+            hideError();
+            var btn = document.getElementById('convertBtn');
+            btn.disabled = true;
+            btn.textContent = '转换中...';
+            btn.classList.add('btn-converting');
+
+            document.getElementById('progressBar').style.display = 'block';
+            document.getElementById('progressText').style.display = 'block';
+            document.getElementById('resultArea').style.display = 'none';
+
+            var duration = parseFloat(document.getElementById('durationRange').value);
+            var fps = parseInt(document.getElementById('fpsRange').value);
+            var maxWidth = parseInt(document.getElementById('widthRange').value);
+            var startTime = parseFloat(document.getElementById('startRange').value);
+            var totalFrames = Math.round(duration * fps);
+
+            var canvas = document.createElement('canvas');
+            var origW = videoEl.videoWidth;
+            var origH = videoEl.videoHeight;
+            var scale = Math.min(1, maxWidth / origW);
+            canvas.width = Math.round(origW * scale);
+            canvas.height = Math.round(origH * scale);
+            var ctx = canvas.getContext('2d');
+
+            var frames = [];
+            var frameInterval = 1000 / fps;
+
+            for (var i = 0; i < totalFrames; i++) {
+                var time = startTime + (i * frameInterval / 1000);
+                videoEl.currentTime = time;
+                await seekTo(videoEl, time);
+                ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+                var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                frames.push(imageData);
+                var pct = Math.round((i+1) / totalFrames * 100);
+                document.getElementById('progressFill').style.width = pct + '%';
+                document.getElementById('progressText').textContent = '截取帧 ' + (i+1) + '/' + totalFrames + ' (' + pct + '%)';
+            }
+
+            document.getElementById('progressText').textContent = '正在编码 GIF...';
+
+            try {
+                gifBlob = await encodeGIF(frames, canvas.width, canvas.height, fps, function(pct) {
+                    document.getElementById('progressFill').style.width = pct + '%';
+                    document.getElementById('progressText').textContent = '编码 GIF ' + pct + '%';
+                });
+            } catch(e) {
+                showError('GIF 编码失败：' + e.message);
+                resetBtn();
+                return;
+            }
+
+            var url = URL.createObjectURL(gifBlob);
+            var img = document.getElementById('resultGif');
+            img.src = url;
+            document.getElementById('resultInfo').textContent =
+                '帧数：' + totalFrames + ' | 尺寸：' + canvas.width + 'x' + canvas.height +
+                ' | 文件大小：' + formatSize(gifBlob.size) +
+                ' | 帧率：' + fps + ' FPS';
+            document.getElementById('resultArea').style.display = 'block';
+            document.getElementById('progressBar').style.display = 'none';
+            document.getElementById('progressText').style.display = 'none';
+            resetBtn();
+        }
+
+        function seekTo(video, time) {
+            return new Promise(function(resolve) {
+                video.currentTime = time;
+                var onSeek = function() {
+                    video.removeEventListener('seeked', onSeek);
+                    resolve();
+                };
+                video.addEventListener('seeked', onSeek);
+                if (video.currentTime === time) {
+                    video.removeEventListener('seeked', onSeek);
+                    resolve();
+                }
+            });
+        }
+
+        function encodeGIF(frames, w, h, fps, onProgress) {
+            return new Promise(function(resolve, reject) {
+                var delay = Math.round(100 / fps) * 10;
+                var gif = new GIF({ workers: 2, quality: 10, width: w, height: h, workerScript: '/tools/video-to-gif/gif.worker.js' });
+
+                frames.forEach(function(imgData) {
+                    var c = document.createElement('canvas');
+                    c.width = w; c.height = h;
+                    c.getContext('2d').putImageData(imgData, 0, 0);
+                    gif.addFrame(c, { delay: delay, copy: true });
+                });
+
+                gif.on('progress', function(p) { onProgress(Math.round(p*100)); });
+                gif.on('finished', function(blob) { resolve(blob); });
+                gif.on('error', function(e) { reject(e); });
+                gif.render();
+            });
+        }
+
+        function downloadGif() {
+            if (!gifBlob) return;
+            var url = URL.createObjectURL(gifBlob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'converted.gif';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function resetAll() {
+            videoEl.src = '';
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileName').textContent = '';
+            document.getElementById('dropZone').classList.remove('has-file');
+            document.getElementById('videoPreview').style.display = 'none';
+            document.getElementById('settingsArea').style.display = 'none';
+            document.getElementById('convertRow').style.display = 'none';
+            document.getElementById('resultArea').style.display = 'none';
+            document.getElementById('progressBar').style.display = 'none';
+            document.getElementById('progressText').style.display = 'none';
+            document.getElementById('progressFill').style.width = '0%';
+            hideError();
+            gifBlob = null;
+            resetBtn();
+        }
+
+        function resetBtn() {
+            var btn = document.getElementById('convertBtn');
+            btn.disabled = false;
+            btn.textContent = '开始转换';
+            btn.classList.remove('btn-converting');
+        }
+
+        function showError(msg) {
+            var el = document.getElementById('errorMsg');
+            el.textContent = msg;
+            el.classList.add('visible');
+        }
+
+        function hideError() {
+            document.getElementById('errorMsg').classList.remove('visible');
+        }
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+            return (bytes/1048576).toFixed(2) + ' MB';
+        }
+
+        var dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.style.borderColor = '#000'; });
+        dropZone.addEventListener('dragleave', function() { dropZone.style.borderColor = '#ccc'; });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+            var file = e.dataTransfer.files[0];
+            if (file) {
+                document.getElementById('fileInput').files = e.dataTransfer.files;
+                handleFile(document.getElementById('fileInput'));
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</body>
+</html>

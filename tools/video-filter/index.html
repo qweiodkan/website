@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频素材筛选工具 - 汤圆知识树屋</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta name="description" content="视频素材筛选工具——智能识别视频内容，自动分析画面质量，一键导出剪辑时间线，让素材整理效率提升 10 倍。免费下载。">
+    <meta property="og:title" content="视频素材筛选工具 - 汤圆知识树屋">
+    <meta property="og:description" content="智能识别视频内容，自动分析画面质量，一键导出剪辑时间线。免费下载，即解压即用。">
+    <meta property="og:url" content="https://tangyuanzhp.top/tool/video-filter/">
+    <meta property="og:type" content="website">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "拍了一大堆视频素材，怎么快速挑出能用的片段？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "用视频素材筛选工具自动分析。它会提取每个镜头的关键帧，从清晰度、稳定性、构图三个维度打分，把相似镜头归到一组，并推荐每个分组里质量最高的片段。1 小时素材大约 5-10 分钟完成分析，比人工拉片快 10 倍以上。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "视频素材筛选工具支持哪些视频格式？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "支持 MP4、MOV、AVI、MKV 四种主流格式，覆盖了相机、手机、剪辑软件导出的绝大多数素材。其他格式建议先用 FFmpeg 或剪映转成 MP4 再导入。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "筛选结果怎么导入 Final Cut Pro 剪辑？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "工具会生成 FCP XML 格式的时间线文件。在 Final Cut Pro 里选「文件 → 导入 → XML」，选择工具导出的 XML 文件，时间线、入出点、分组信息会直接出现在 FCP 里，不需要重新标记。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "素材筛选工具能在 Mac 上用吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "目前只支持 Windows 10/11，Mac 暂未适配。Mac 用户可以用 DaVinci Resolve 的「场景检测」功能部分替代，但功能比这个工具弱（不做质量评分和镜头聚类）。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1 小时的婚礼跟拍素材，分析需要多久？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "大约 5-10 分钟，取决于视频分辨率和电脑 CPU。4K 素材会更慢，建议先用码率计算器确认素材参数，1080p 一般在 8 分钟内完成。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "这个工具是怎么判断镜头好坏的？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "基于三个维度量化打分：①清晰度（关键帧锐度分析）；②稳定性（帧间运动幅度，抖动大扣分）；③构图（主体位置、画面平衡）。三个分数加权得出每个镜头的综合评分，分高的进推荐池。算法用 NumPy + Scikit-learn 实现。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "工具是免费的吗？有没有水印或功能限制？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "完全免费，无水印、无功能限制、无需注册。下载压缩包解压即用，不需要管理员权限，方便团队内部批量分发。"
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+
+        /* 面包屑 */
+        .breadcrumb {
+            padding: 90px 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { color: #aaa; font-size: 14px; }
+        
+        /* Hero 区域 */
+        .hero {
+            background: #000;
+            color: #fff;
+            padding: 40px 20px 100px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #aaa;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 15px 40px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        }
+        
+        /* 三步上手 */
+        .steps {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #000;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .step {
+            text-align: center;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .step p { color: #666; }
+        
+        /* 截图展示 */
+        .screenshots {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .screenshot-item {
+            background: #f5f5f5;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .screenshot-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            background: #e5e5e5;
+            display: block;
+            cursor: zoom-in;
+        }
+        .screenshot-item p {
+            padding: 15px 20px;
+            text-align: center;
+            color: #666;
+            margin-top: auto;
+        }
+        
+        /* 核心功能 */
+        .features {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .feature-card p { color: #666; }
+        
+        /* 使用场景 */
+        .scenarios {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .scenario-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .scenario-item {
+            background: #f5f5f5;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s;
+        }
+        .scenario-item:hover {
+            background: #000;
+            color: #fff;
+        }
+        
+        /* 技术架构 */
+        .tech {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .tech-card {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .tech-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tech-tag {
+            background: #000;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        .tech-desc {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .faq-question {
+            background: #fff;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .faq-question:hover { background: #f0f0f0; }
+        .faq-answer {
+            background: #fff;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+        .faq-arrow {
+            transition: transform 0.3s;
+        }
+        .faq-arrow.rotate { transform: rotate(180deg); }
+        
+        /* 系统要求 */
+        .requirements {
+            padding: 60px 20px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+        }
+        .requirements h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        .req-list {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #111;
+            color: #666;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        /* 图片放大预览 - Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.95);
+        }
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+        /* 汉堡菜单 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 54px;
+            left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 99;
+            padding: 10px 0 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 32px; }
+            .screenshot-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links">
+                <a href="/">首页</a>
+                <a href="/tool/">导航</a>
+                <a href="/blog/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">首页</a>
+        <a href="/tool/">导航</a>
+        <a href="/blog/">文章</a>
+        <a href="/about/">关于</a>
+    </div>
+    
+    <!-- 面包屑 -->
+    <div class="breadcrumb">
+        <a href="/">首页</a> <span>/</span> <a href="/tool/">导航</a> <span>/</span> 视频素材筛选工具
+    </div>
+
+    <!-- Hero 区域 -->
+    <section class="hero" id="download">
+        <h1>视频素材筛选工具</h1>
+        <p>智能识别视频内容，一键筛选精彩片段，让剪辑效率提升 10 倍</p>
+        <a href="https://pan.quark.cn/s/4a03be2eff69" class="btn-primary" target="_blank">免费下载</a>
+    </section>
+    
+    <!-- 三步上手 -->
+    <section class="steps" id="steps">
+        <div class="container">
+            <h2 class="section-title">三步上手</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>下载安装</h3>
+                    <p>下载压缩包，解压到任意文件夹，无需安装即可使用</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>导入视频</h3>
+                    <p>拖拽或选择视频文件夹，工具自动分析所有素材</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>导出结果</h3>
+                    <p>查看筛选结果，一键导出剪辑时间线到 FCP</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 截图展示 -->
+    <section class="screenshots" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">界面预览</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot-item">
+                    <img src="/tools/video-filter/screenshots/screenshot1.png" alt="主界面" onclick="openLightbox(this)">
+                    <p>简洁直观的操作界面</p>
+                </div>
+                <div class="screenshot-item">
+                    <img src="/tools/video-filter/screenshots/screenshot2.png" alt="分析结果" onclick="openLightbox(this)">
+                    <p>智能分析视频质量</p>
+                </div>
+                <div class="screenshot-item">
+                    <img src="/tools/video-filter/screenshots/screenshot3.png" alt="导出界面" onclick="openLightbox(this)">
+                    <p>一键导出到剪辑软件</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 核心功能 -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">核心功能</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>自动分析</h3>
+                    <p>自动提取视频关键帧，分析画面质量</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>智能分组</h3>
+                    <p>将相似镜头自动分组，快速定位素材</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>质量评分</h3>
+                    <p>评估清晰度、稳定性、构图等多维度</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>推荐片段</h3>
+                    <p>智能推荐最佳素材片段</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>导出 XML</h3>
+                    <p>一键导出到 Final Cut Pro 等剪辑软件</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 使用场景 -->
+    <section class="scenarios">
+        <div class="container">
+            <h2 class="section-title">使用场景</h2>
+            <div class="scenario-list">
+                <div class="scenario-item">婚礼跟拍素材筛选</div>
+                <div class="scenario-item">旅行视频整理</div>
+                <div class="scenario-item">活动拍摄素材筛选</div>
+                <div class="scenario-item">短视频素材整理</div>
+                <div class="scenario-item">纪录片素材筛选</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 技术架构 -->
+    <section class="tech" id="tech">
+        <div class="container">
+            <h2 class="section-title">技术架构</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>编程语言</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python 3</span>
+                    </div>
+                    <p class="tech-desc">项目核心语言，跨平台支持，开源生态丰富，适合快速开发和 AI 集成。</p>
+                </div>
+                <div class="tech-card">
+                    <h3>图形界面</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Tkinter</span>
+                    </div>
+                    <p class="tech-desc">Python 标准库 GUI 框架，无需额外安装依赖，即开即用，适合桌面工具开发。</p>
+                </div>
+                <div class="tech-card">
+                    <h3>视频分析</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PySceneDetect</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">FFmpeg</span>
+                    </div>
+                    <p class="tech-desc">PySceneDetect 检测镜头切换点，OpenCV 提取画面特征，FFmpeg 处理视频编解码和转码，三者协同实现精准的视频内容分析。</p>
+                </div>
+                <div class="tech-card">
+                    <h3>评分与聚类</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                    </div>
+                    <p class="tech-desc">NumPy 高效处理帧数据，Scikit-learn 实现镜头聚类与质量评分算法，量化视频质量并自动推荐最佳片段。</p>
+                </div>
+                <div class="tech-card">
+                    <h3>时间线导出</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">FCP XML</span>
+                        <span class="tech-tag">XML</span>
+                    </div>
+                    <p class="tech-desc">生成符合 Final Cut Pro 规范的 XML 时间线文件，可直接导入专业剪辑软件，无需重新标记入出点。</p>
+                </div>
+                <div class="tech-card">
+                    <h3>便携化部署</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PyInstaller</span>
+                        <span class="tech-tag">便携 Python</span>
+                    </div>
+                    <p class="tech-desc">PyInstaller 打包为独立可执行文件，配合便携化 Python 环境，实现解压即用，无需管理员权限，方便分发给用户。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>拍了一大堆视频素材，怎么快速挑出能用的片段？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        用视频素材筛选工具自动分析。它会提取每个镜头的关键帧，从清晰度、稳定性、构图三个维度打分，把相似镜头归到一组，并推荐每个分组里质量最高的片段。1 小时素材大约 5-10 分钟完成分析，比人工拉片快 10 倍以上。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>视频素材筛选工具支持哪些视频格式？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        支持 MP4、MOV、AVI、MKV 四种主流格式，覆盖了相机、手机、剪辑软件导出的绝大多数素材。其他格式建议先用 FFmpeg 或剪映转成 MP4 再导入。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>筛选结果怎么导入 Final Cut Pro 剪辑？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        工具会生成 FCP XML 格式的时间线文件。在 Final Cut Pro 里选「文件 → 导入 → XML」，选择工具导出的 XML 文件，时间线、入出点、分组信息会直接出现在 FCP 里，不需要重新标记。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>素材筛选工具能在 Mac 上用吗？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        目前只支持 Windows 10/11，Mac 暂未适配。Mac 用户可以用 DaVinci Resolve 的「场景检测」功能部分替代，但功能比这个工具弱（不做质量评分和镜头聚类）。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>1 小时的婚礼跟拍素材，分析需要多久？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        大约 5-10 分钟，取决于视频分辨率和电脑 CPU。4K 素材会更慢，建议先用码率计算器确认素材参数，1080p 一般在 8 分钟内完成。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>这个工具是怎么判断镜头好坏的？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        基于三个维度量化打分：①清晰度（关键帧锐度分析）；②稳定性（帧间运动幅度，抖动大扣分）；③构图（主体位置、画面平衡）。三个分数加权得出每个镜头的综合评分，分高的进推荐池。算法用 NumPy + Scikit-learn 实现。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>工具是免费的吗？有没有水印或功能限制？</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        完全免费，无水印、无功能限制、无需注册。下载压缩包解压即用，不需要管理员权限，方便团队内部批量分发。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 系统要求 -->
+    <section class="requirements">
+        <h2>系统要求</h2>
+        <div class="req-list">
+            <div class="req-item">💻 Windows 10 / 11</div>
+            <div class="req-item">💾 500MB 可用空间</div>
+            <div class="req-item">🧠 8GB 内存推荐</div>
+        </div>
+    </section>
+    
+    <!-- 使用教程 -->
+    <section style="padding: 60px 20px; background: #f5f5f5; text-align: center;">
+        <div class="container">
+            <p style="font-size: 16px; color: #666; margin-bottom: 10px;">不会用？看这里</p>
+            <a href="https://blog.tangyuanzhp.top/index.php/archives/5/" target="_blank" rel="noopener" style="display: inline-block; background: #000; color: #fff; padding: 14px 36px; border-radius: 50px; text-decoration: none; font-size: 17px; font-weight: 600; transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 30px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';">📖  活动花絮素材筛选实操教程 →</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2026 汤圆知识树屋</p>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('.faq-arrow');
+            answer.classList.toggle('active');
+            arrow.classList.toggle('rotate');
+        }
+
+        function openLightbox(img) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = img.src;
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleMenu() {
+            var btn = document.getElementById('hamburger');
+            var menu = document.getElementById('mobileMenu');
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var lb = document.getElementById('lightbox');
+            if (lb) {
+                lb.addEventListener('click', function(e) {
+                    if (e.target === lb) closeLightbox();
+                });
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+
+    <!-- 图片放大预览 -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div style="text-align:center;color:#aaa;margin-top:15px;font-size:14px;">点击空白处或按 ESC 键关闭</div>
+    </div>
+
+    <!-- 百度统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</body>
+</html>

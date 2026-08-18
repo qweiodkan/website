@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实用导航 - 视频创作·效率工具·开发资源·设计素材 | 汤圆知识树屋</title>
+    <meta name="description" content="汤圆知识树屋精选100+优质网站与工具，涵盖视频剪辑、视频素材、效率软件、开发工具、设计素材、免费字体、在线学习平台、科技资讯。帮你快速找到好用的网站。">
+    <meta name="keywords" content="实用导航,网站导航,工具推荐,视频剪辑工具,效率工具,开发工具,设计素材,视频素材,免费字体,学习资源,科技资讯">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <link rel="canonical" href="https://tangyuanzhp.top/tool/">
+    <meta property="og:title" content="实用导航 | 汤圆知识树屋">
+    <meta property="og:description" content="精选100+优质网站与工具，涵盖视频剪辑、效率软件、开发工具、设计素材、学习平台。让好用的网站触手可及。">
+    <meta property="og:url" content="https://tangyuanzhp.top/tool/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="汤圆知识树屋">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="实用导航 | 汤圆知识树屋">
+    <meta name="twitter:description" content="精选100+优质网站与工具，涵盖视频剪辑、效率软件、开发工具、设计素材。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        body > * { flex-shrink: 0; }
+        body > footer { margin-top: auto; }
+        
+        /* 导航栏 */
+        nav {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        
+        /* Hero 搜索区 */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #fff;
+            padding: 140px 20px 60px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .hero .subtitle {
+            font-size: 16px;
+            margin-bottom: 35px;
+            color: #bbb;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .search-box {
+            max-width: 680px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 16px 55px 16px 22px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            outline: none;
+            transition: box-shadow 0.3s;
+        }
+        .search-box input:focus {
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.2);
+        }
+        .search-box button {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 22px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .search-box button:hover { background: #333; }
+        
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 7px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            color: #ddd;
+            border: 1px solid rgba(255,255,255,0.15);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .hero-tag:hover, .hero-tag.active {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        
+        /* 分类导航条 */
+        .cat-nav {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 15px 0;
+            position: sticky;
+            top: 54px;
+            z-index: 90;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .cat-nav::-webkit-scrollbar { display: none; }
+        .cat-nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .cat-nav-item {
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .cat-nav-item:hover {
+            background: #f0f0f0;
+            color: #000;
+        }
+        .cat-nav-item.active {
+            background: #000;
+            color: #fff;
+        }
+        
+        /* 主内容区 */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            width: 100%;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 120px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title .icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .section-count {
+            font-size: 13px;
+            color: #999;
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 15px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-color: #e0e0e0;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .card-icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .card-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        .card-tag {
+            font-size: 12px;
+            color: #888;
+            background: #f5f5f5;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+        .card-btn {
+            font-size: 13px;
+            color: #000;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card:hover .card-btn { color: #555; }
+        
+        /* 页脚 */
+        footer {
+            background: #111;
+            color: #666;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        footer p { margin-bottom: 8px; }
+        footer a { color: #888; text-decoration: none; }
+        footer a:hover { color: #fff; }
+        
+        /* 无结果 */
+        .no-result {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            display: none;
+        }
+        .no-result.show { display: block; }
+        
+        /* 汉堡菜单 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 54px;
+            left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 99;
+            padding: 10px 0 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+        
+        .hidden { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .hero { padding: 120px 16px 40px; }
+            .hero h1 { font-size: 28px; }
+            .search-box input { font-size: 15px; padding: 14px 50px 14px 18px; }
+            .search-box button { padding: 10px 16px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .card-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 18px; }
+            .cat-nav { top: 54px; }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links">
+                <a href="/">首页</a>
+                <a href="/tool/" class="active">导航</a>
+                <a href="/blog/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">首页</a>
+        <a href="/tool/" class="active">导航</a>
+        <a href="/blog/">文章</a>
+        <a href="/about/">关于</a>
+    </div>
+    
+    <!-- Hero 搜索区 -->
+    <section class="hero">
+        <h1>网址导航</h1>
+        <p class="subtitle">收录视频、效率、开发、媒体等优质工具与资源，让好用的网站触手可及</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索工具、网站、资源..." oninput="doSearch()">
+            <button onclick="doSearch()">搜索</button>
+        </div>
+        <div class="hero-tags" id="quickTags">
+            <span class="hero-tag active" data-cat="all">全部</span>
+            <span class="hero-tag" data-cat="video">视频创作</span>
+            <span class="hero-tag" data-cat="media">媒体资源</span>
+            <span class="hero-tag" data-cat="design">设计素材</span>
+            <span class="hero-tag" data-cat="dev">开发工具</span>
+            <span class="hero-tag" data-cat="eff">效率工具</span>
+        </div>
+    </section>
+    
+    <!-- 分类导航条 -->
+    <div class="cat-nav">
+        <div class="cat-nav-inner" id="catNav">
+            <a class="cat-nav-item active" data-cat="all">全部</a>
+            <a class="cat-nav-item" data-cat="video">视频创作</a>
+            <a class="cat-nav-item" data-cat="media">媒体资源</a>
+            <a class="cat-nav-item" data-cat="design">设计素材</a>
+            <a class="cat-nav-item" data-cat="dev">开发工具</a>
+            <a class="cat-nav-item" data-cat="eff">效率工具</a>
+            <a class="cat-nav-item" data-cat="learn">学习资源</a>
+            <a class="cat-nav-item" data-cat="news">新闻资讯</a>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <main class="main" id="mainContent">
+        <!-- 视频创作 -->
+        <section class="section" data-cat="video">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">V</span> 视频创作</h2>
+                <span class="section-count">剪辑 · 下载 · 处理</span>
+            </div>
+            <div class="card-grid" id="grid-video">
+            <a href="https://www.capcut.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.capcut.cn.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="剪映">剪映</div>
+                </div>
+                <div class="card-desc">抖音官方免费剪辑工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">剪辑</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.blackmagicdesign.com/products/davinciresolve" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.blackmagicdesign.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="DaVinci Resolve">DaVinci Resolve</div>
+                </div>
+                <div class="card-desc">免费且强大的专业调色和剪辑软件。</div>
+                <div class="card-footer">
+                    <span class="card-tag">剪辑</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://ffmpeg.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/ffmpeg.org.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="FFmpeg">FFmpeg</div>
+                </div>
+                <div class="card-desc">开源音视频处理命令行工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">处理</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://handbrake.fr/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/handbrake.fr.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="HandBrake">HandBrake</div>
+                </div>
+                <div class="card-desc">开源视频压缩和转码工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">转码</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://obsproject.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/obsproject.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="OBS Studio">OBS Studio</div>
+                </div>
+                <div class="card-desc">开源直播录屏软件。</div>
+                <div class="card-footer">
+                    <span class="card-tag">录屏</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://github.com/yt-dlp/yt-dlp" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/github.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="yt-dlp">yt-dlp</div>
+                </div>
+                <div class="card-desc">强大的命令行视频下载工具，支持众多平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">下载</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.capcut.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.capcut.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="CapCut">CapCut</div>
+                </div>
+                <div class="card-desc">剪映国际版，免费无水印。</div>
+                <div class="card-footer">
+                    <span class="card-tag">剪辑</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.descript.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.descript.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Descript">Descript</div>
+                </div>
+                <div class="card-desc">基于文本剪辑视频和播客的工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">剪辑</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://github.com/mli/autocut" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/github.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="AutoCut">AutoCut</div>
+                </div>
+                <div class="card-desc">B站 Up 主开发的自动剪辑工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">自动剪辑</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <!-- 媒体资源 -->
+        <section class="section" data-cat="media">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">M</span> 媒体资源</h2>
+                <span class="section-count">影视 · 音乐 · 电子书</span>
+            </div>
+            <div class="card-grid" id="grid-media">
+            <a href="https://www.pexels.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.pexels.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Pexels">Pexels</div>
+                </div>
+                <div class="card-desc">免费商用图片和视频素材。</div>
+                <div class="card-footer">
+                    <span class="card-tag">图片/视频</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://unsplash.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/unsplash.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Unsplash">Unsplash</div>
+                </div>
+                <div class="card-desc">高质量免费图片素材。</div>
+                <div class="card-footer">
+                    <span class="card-tag">图片</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://pixabay.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/pixabay.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Pixabay">Pixabay</div>
+                </div>
+                <div class="card-desc">免费图片、视频、音乐素材。</div>
+                <div class="card-footer">
+                    <span class="card-tag">综合</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://mixkit.co/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/mixkit.co.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Mixkit">Mixkit</div>
+                </div>
+                <div class="card-desc">免费视频素材和音乐。</div>
+                <div class="card-footer">
+                    <span class="card-tag">视频/音乐</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://freepd.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/freepd.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="FreePD">FreePD</div>
+                </div>
+                <div class="card-desc">免费无版权音乐。</div>
+                <div class="card-footer">
+                    <span class="card-tag">音乐</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://tool.liumingye.cn/music/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/tool.liumingye.cn.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="MyFreeMP3">MyFreeMP3</div>
+                </div>
+                <div class="card-desc">免费在线音乐搜索和下载。</div>
+                <div class="card-footer">
+                    <span class="card-tag">音乐</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.shuge.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.shuge.org.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="书格">书格</div>
+                </div>
+                <div class="card-desc">古籍和开放电子书共享。</div>
+                <div class="card-footer">
+                    <span class="card-tag">古籍</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.pianku.li/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.pianku.li.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="片库">片库</div>
+                </div>
+                <div class="card-desc">影视资源网站。</div>
+                <div class="card-footer">
+                    <span class="card-tag">影视</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.bilibili.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.bilibili.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="哔哩哔哩">哔哩哔哩</div>
+                </div>
+                <div class="card-desc">国内最大的视频内容社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">综合</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <!-- 设计素材 -->
+        <section class="section" data-cat="design">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">D</span> 设计素材</h2>
+                <span class="section-count">图片 · 图标 · 字体</span>
+            </div>
+            <div class="card-grid" id="grid-design">
+            <a href="https://www.canva.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.canva.cn.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Canva">Canva</div>
+                </div>
+                <div class="card-desc">在线设计工具，模板丰富。</div>
+                <div class="card-footer">
+                    <span class="card-tag">设计</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.figma.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.figma.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Figma">Figma</div>
+                </div>
+                <div class="card-desc">在线界面设计和协作工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">UI/UX</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://js.design/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/js.design.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="即时设计">即时设计</div>
+                </div>
+                <div class="card-desc">国产在线 UI 设计工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">UI/UX</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.iconfont.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.iconfont.cn.svg" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="iconfont">iconfont</div>
+                </div>
+                <div class="card-desc">阿里巴巴矢量图标库。</div>
+                <div class="card-footer">
+                    <span class="card-tag">图标</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://iconpark.oceanengine.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/iconpark.oceanengine.com.svg" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="IconPark">IconPark</div>
+                </div>
+                <div class="card-desc">字节跳动开源图标库。</div>
+                <div class="card-footer">
+                    <span class="card-tag">图标</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.freepik.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.freepik.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Freepik">Freepik</div>
+                </div>
+                <div class="card-desc">矢量图、图片和 PSD 素材。</div>
+                <div class="card-footer">
+                    <span class="card-tag">素材</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.zcool.com.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.zcool.com.cn.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="站酷">站酷</div>
+                </div>
+                <div class="card-desc">国内设计师社区和素材。</div>
+                <div class="card-footer">
+                    <span class="card-tag">社区</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://huaban.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/huaban.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="花瓣网">花瓣网</div>
+                </div>
+                <div class="card-desc">设计灵感采集平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">灵感</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://dribbble.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/dribbble.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Dribbble">Dribbble</div>
+                </div>
+                <div class="card-desc">全球设计师作品分享社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">灵感</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.maoken.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.maoken.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="猫啃网">猫啃网</div>
+                </div>
+                <div class="card-desc">免费可商用中文字体。</div>
+                <div class="card-footer">
+                    <span class="card-tag">字体</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.hellofont.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.hellofont.cn.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="字由">字由</div>
+                </div>
+                <div class="card-desc">字体管理和设计工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">字体</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.remove.bg/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.remove.bg.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Remove.bg">Remove.bg</div>
+                </div>
+                <div class="card-desc">自动抠图工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">图片处理</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://bigjpg.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/bigjpg.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Bigjpg">Bigjpg</div>
+                </div>
+                <div class="card-desc">图片无损放大。</div>
+                <div class="card-footer">
+                    <span class="card-tag">图片处理</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <!-- 开发工具 -->
+        <section class="section" data-cat="dev">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">D</span> 开发工具</h2>
+                <span class="section-count">代码 · 托管 · 在线工具</span>
+            </div>
+            <div class="card-grid" id="grid-dev">
+            <a href="https://github.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/github.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="GitHub">GitHub</div>
+                </div>
+                <div class="card-desc">全球最大代码托管平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">代码托管</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://gitee.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/gitee.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Gitee">Gitee</div>
+                </div>
+                <div class="card-desc">国内代码托管平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">代码托管</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://code.visualstudio.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/code.visualstudio.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="VS Code">VS Code</div>
+                </div>
+                <div class="card-desc">微软开源编辑器，插件丰富。</div>
+                <div class="card-footer">
+                    <span class="card-tag">编辑器</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://cursor.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/cursor.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Cursor">Cursor</div>
+                </div>
+                <div class="card-desc">智能驱动的代码编辑器。</div>
+                <div class="card-footer">
+                    <span class="card-tag">编辑器</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://codepen.io/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/codepen.io.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="CodePen">CodePen</div>
+                </div>
+                <div class="card-desc">在线前端代码演示平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">在线工具</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://stackoverflow.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/stackoverflow.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Stack Overflow">Stack Overflow</div>
+                </div>
+                <div class="card-desc">程序员问答社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">问答</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://developer.mozilla.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/developer.mozilla.org.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="MDN">MDN</div>
+                </div>
+                <div class="card-desc">Web 开发权威文档。</div>
+                <div class="card-footer">
+                    <span class="card-tag">文档</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://railway.app/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/railway.app.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Railway">Railway</div>
+                </div>
+                <div class="card-desc">一键部署后端应用。</div>
+                <div class="card-footer">
+                    <span class="card-tag">部署</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.postman.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.postman.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Postman">Postman</div>
+                </div>
+                <div class="card-desc">API 调试和测试工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">API</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.docker.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.docker.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Docker">Docker</div>
+                </div>
+                <div class="card-desc">容器化应用平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">运维</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://regex101.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/regex101.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Regex101">Regex101</div>
+                </div>
+                <div class="card-desc">正则表达式在线测试。</div>
+                <div class="card-footer">
+                    <span class="card-tag">工具</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://jsoncrack.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/jsoncrack.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Json Crack">Json Crack</div>
+                </div>
+                <div class="card-desc">JSON 数据可视化工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">工具</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <!-- 效率工具 -->
+        <section class="section" data-cat="eff">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">E</span> 效率工具</h2>
+                <span class="section-count">办公 · 笔记 · 协作</span>
+            </div>
+            <div class="card-grid" id="grid-eff">
+            <a href="https://www.notion.so/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.notion.so.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Notion">Notion</div>
+                </div>
+                <div class="card-desc">笔记、数据库、协作一体。</div>
+                <div class="card-footer">
+                    <span class="card-tag">笔记</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://obsidian.md/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/obsidian.md.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Obsidian">Obsidian</div>
+                </div>
+                <div class="card-desc">本地知识库和双向链接笔记。</div>
+                <div class="card-footer">
+                    <span class="card-tag">笔记</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.yuque.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.yuque.com.svg" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="语雀">语雀</div>
+                </div>
+                <div class="card-desc">阿里出品的专业文档工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">文档</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.feishu.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.feishu.cn.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="飞书文档">飞书文档</div>
+                </div>
+                <div class="card-desc">字节出品协作文档。</div>
+                <div class="card-footer">
+                    <span class="card-tag">协作</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://docs.qq.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/docs.qq.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="腾讯文档">腾讯文档</div>
+                </div>
+                <div class="card-desc">在线文档和表格协作。</div>
+                <div class="card-footer">
+                    <span class="card-tag">协作</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://flomoapp.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/flomoapp.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Flomo">Flomo</div>
+                </div>
+                <div class="card-desc">轻量灵感记录工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">笔记</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://dida365.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/dida365.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="滴答清单">滴答清单</div>
+                </div>
+                <div class="card-desc">任务管理和番茄钟。</div>
+                <div class="card-footer">
+                    <span class="card-tag">待办</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://todoist.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/todoist.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Todoist">Todoist</div>
+                </div>
+                <div class="card-desc">跨平台任务管理工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">待办</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://getquicker.net/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/getquicker.net.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Quicker">Quicker</div>
+                </div>
+                <div class="card-desc">Windows 效率启动器。</div>
+                <div class="card-footer">
+                    <span class="card-tag">效率</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://u.tools/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/u.tools.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="uTools">uTools</div>
+                </div>
+                <div class="card-desc">插件化效率工具集。</div>
+                <div class="card-footer">
+                    <span class="card-tag">效率</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.voidtools.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.voidtools.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Everything">Everything</div>
+                </div>
+                <div class="card-desc">极速本地文件搜索。</div>
+                <div class="card-footer">
+                    <span class="card-tag">搜索</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.listary.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.listary.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Listary">Listary</div>
+                </div>
+                <div class="card-desc">快速启动和文件搜索。</div>
+                <div class="card-footer">
+                    <span class="card-tag">搜索</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.snipaste.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.snipaste.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Snipaste">Snipaste</div>
+                </div>
+                <div class="card-desc">强大的截图贴图工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">截图</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://getsharex.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/getsharex.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="ShareX">ShareX</div>
+                </div>
+                <div class="card-desc">开源截图和录屏工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">截图</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://calibre-ebook.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/calibre-ebook.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Calibre">Calibre</div>
+                </div>
+                <div class="card-desc">电子书管理和转换。</div>
+                <div class="card-footer">
+                    <span class="card-tag">电子书</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.zotero.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.zotero.org.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Zotero">Zotero</div>
+                </div>
+                <div class="card-desc">文献管理和引用工具。</div>
+                <div class="card-footer">
+                    <span class="card-tag">文献</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <!-- 学习资源 -->
+        <section class="section" data-cat="learn">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">L</span> 学习资源</h2>
+                <span class="section-count">教程 · 课程 · 知识库</span>
+            </div>
+            <div class="card-grid" id="grid-learn">
+            <a href="https://www.bilibili.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.bilibili.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="哔哩哔哩">哔哩哔哩</div>
+                </div>
+                <div class="card-desc">海量教程视频，学习资源丰富。</div>
+                <div class="card-footer">
+                    <span class="card-tag">视频</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.icourse163.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.icourse163.org.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="中国大学 MOOC">中国大学 MOOC</div>
+                </div>
+                <div class="card-desc">高校精品课程平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">课程</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.coursera.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.coursera.org.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Coursera">Coursera</div>
+                </div>
+                <div class="card-desc">国际知名在线课程平台。</div>
+                <div class="card-footer">
+                    <span class="card-tag">课程</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.freecodecamp.org/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.freecodecamp.org.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="freeCodeCamp">freeCodeCamp</div>
+                </div>
+                <div class="card-desc">免费编程学习社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">编程</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.runoob.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.runoob.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="菜鸟教程">菜鸟教程</div>
+                </div>
+                <div class="card-desc">编程基础入门教程。</div>
+                <div class="card-footer">
+                    <span class="card-tag">编程</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.w3schools.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.w3schools.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="W3Schools">W3Schools</div>
+                </div>
+                <div class="card-desc">Web 技术入门教程。</div>
+                <div class="card-footer">
+                    <span class="card-tag">Web</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.zhihu.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.zhihu.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="知乎">知乎</div>
+                </div>
+                <div class="card-desc">知识问答社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">问答</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://juejin.cn/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/juejin.cn.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="掘金">掘金</div>
+                </div>
+                <div class="card-desc">技术社区和学习资源。</div>
+                <div class="card-footer">
+                    <span class="card-tag">技术</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.csdn.net/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.csdn.net.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="CSDN">CSDN</div>
+                </div>
+                <div class="card-desc">中文 IT 技术社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">技术</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.appinn.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.appinn.com.jpg" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="小众软件">小众软件</div>
+                </div>
+                <div class="card-desc">精品软件推荐和评测。</div>
+                <div class="card-footer">
+                    <span class="card-tag">软件</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://sspai.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/sspai.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="少数派">少数派</div>
+                </div>
+                <div class="card-desc">数字生活指南和效率方法论。</div>
+                <div class="card-footer">
+                    <span class="card-tag">数字生活</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.ruanyifeng.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.ruanyifeng.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="阮一峰博客">阮一峰博客</div>
+                </div>
+                <div class="card-desc">技术周报和入门教程。</div>
+                <div class="card-footer">
+                    <span class="card-tag">博客</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <!-- 新闻资讯 -->
+        <section class="section" data-cat="news">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">N</span> 新闻资讯</h2>
+                <span class="section-count">科技 · 行业 · 聚合</span>
+            </div>
+            <div class="card-grid" id="grid-news">
+            <a href="https://36kr.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/36kr.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="36氪">36氪</div>
+                </div>
+                <div class="card-desc">科技创业和商业资讯。</div>
+                <div class="card-footer">
+                    <span class="card-tag">科技</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.huxiu.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.huxiu.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="虎嗅">虎嗅</div>
+                </div>
+                <div class="card-desc">商业和科技深度报道。</div>
+                <div class="card-footer">
+                    <span class="card-tag">商业</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.geekpark.net/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.geekpark.net.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="极客公园">极客公园</div>
+                </div>
+                <div class="card-desc">科技媒体和社区。</div>
+                <div class="card-footer">
+                    <span class="card-tag">科技</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.jiqizhixin.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.jiqizhixin.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="机器之心">机器之心</div>
+                </div>
+                <div class="card-desc">智能领域专业媒体。</div>
+                <div class="card-footer">
+                    <span class="card-tag">科技</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.qbitai.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.qbitai.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="量子位">量子位</div>
+                </div>
+                <div class="card-desc">前沿科技资讯。</div>
+                <div class="card-footer">
+                    <span class="card-tag">科技</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://techcrunch.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/techcrunch.com.png" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="TechCrunch">TechCrunch</div>
+                </div>
+                <div class="card-desc">国际科技媒体。</div>
+                <div class="card-footer">
+                    <span class="card-tag">国际</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.theverge.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.theverge.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="The Verge">The Verge</div>
+                </div>
+                <div class="card-desc">科技、数码和文化评论。</div>
+                <div class="card-footer">
+                    <span class="card-tag">国际</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.producthunt.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.producthunt.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="Product Hunt">Product Hunt</div>
+                </div>
+                <div class="card-desc">新产品发现和推荐。</div>
+                <div class="card-footer">
+                    <span class="card-tag">产品</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.latepost.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.latepost.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="晚点 LatePost">晚点 LatePost</div>
+                </div>
+                <div class="card-desc">商业深度报道。</div>
+                <div class="card-footer">
+                    <span class="card-tag">商业</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.ithome.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.ithome.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="IT之家">IT之家</div>
+                </div>
+                <div class="card-desc">IT 数码资讯。</div>
+                <div class="card-footer">
+                    <span class="card-tag">数码</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            <a href="https://www.jiemian.com/" class="card" target="_blank" rel="noopener">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="/favicons/www.jiemian.com.ico" alt="" loading="lazy">
+                    </div>
+                    <div class="card-title" title="界面新闻">界面新闻</div>
+                </div>
+                <div class="card-desc">新闻和商业资讯。</div>
+                <div class="card-footer">
+                    <span class="card-tag">新闻</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+            </div>
+        </section>
+        
+        <div class="no-result" id="noResult">
+            <p>没有找到相关内容</p>
+            <p style="font-size: 13px; margin-top: 10px;">换个关键词试试？</p>
+        </div>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2026 汤圆知识树屋</p>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p>
+    </footer>
+
+    <script src="/favicons/favicon-data.js"></script>
+    <script>
+    // 导航数据
+    const navData = [
+        // 视频创作
+        { title: "剪映", desc: "抖音官方免费剪辑工具。", url: "https://www.capcut.cn/", cat: "video", tag: "剪辑" },
+        { title: "DaVinci Resolve", desc: "免费且强大的专业调色和剪辑软件。", url: "https://www.blackmagicdesign.com/products/davinciresolve", cat: "video", tag: "剪辑" },
+        { title: "FFmpeg", desc: "开源音视频处理命令行工具。", url: "https://ffmpeg.org/", cat: "video", tag: "处理" },
+        { title: "HandBrake", desc: "开源视频压缩和转码工具。", url: "https://handbrake.fr/", cat: "video", tag: "转码" },
+        { title: "OBS Studio", desc: "开源直播录屏软件。", url: "https://obsproject.com/", cat: "video", tag: "录屏" },
+        { title: "yt-dlp", desc: "强大的命令行视频下载工具，支持众多平台。", url: "https://github.com/yt-dlp/yt-dlp", cat: "video", tag: "下载" },
+        { title: "CapCut", desc: "剪映国际版，免费无水印。", url: "https://www.capcut.com/", cat: "video", tag: "剪辑" },
+        { title: "Descript", desc: "基于文本剪辑视频和播客的工具。", url: "https://www.descript.com/", cat: "video", tag: "剪辑" },
+        { title: "AutoCut", desc: "B站 Up 主开发的自动剪辑工具。", url: "https://github.com/mli/autocut", cat: "video", tag: "自动剪辑" },
+        
+        // 媒体资源
+        { title: "Pexels", desc: "免费商用图片和视频素材。", url: "https://www.pexels.com/", cat: "media", tag: "图片/视频" },
+        { title: "Unsplash", desc: "高质量免费图片素材。", url: "https://unsplash.com/", cat: "media", tag: "图片" },
+        { title: "Pixabay", desc: "免费图片、视频、音乐素材。", url: "https://pixabay.com/", cat: "media", tag: "综合" },
+        { title: "Mixkit", desc: "免费视频素材和音乐。", url: "https://mixkit.co/", cat: "media", tag: "视频/音乐" },
+        { title: "FreePD", desc: "免费无版权音乐。", url: "https://freepd.com/", cat: "media", tag: "音乐" },
+        { title: "MyFreeMP3", desc: "免费在线音乐搜索和下载。", url: "https://tool.liumingye.cn/music/", cat: "media", tag: "音乐" },
+        { title: "书格", desc: "古籍和开放电子书共享。", url: "https://www.shuge.org/", cat: "media", tag: "古籍" },
+        { title: "片库", desc: "影视资源网站。", url: "https://www.pianku.li/", cat: "media", tag: "影视" },
+        { title: "哔哩哔哩", desc: "国内最大的视频内容社区。", url: "https://www.bilibili.com/", cat: "media", tag: "综合" },
+        
+        // 设计素材
+        { title: "Canva", desc: "在线设计工具，模板丰富。", url: "https://www.canva.cn/", cat: "design", tag: "设计" },
+        { title: "Figma", desc: "在线界面设计和协作工具。", url: "https://www.figma.com/", cat: "design", tag: "UI/UX" },
+        { title: "即时设计", desc: "国产在线 UI 设计工具。", url: "https://js.design/", cat: "design", tag: "UI/UX" },
+        { title: "iconfont", desc: "阿里巴巴矢量图标库。", url: "https://www.iconfont.cn/", cat: "design", tag: "图标" },
+        { title: "IconPark", desc: "字节跳动开源图标库。", url: "https://iconpark.oceanengine.com/", cat: "design", tag: "图标" },
+        { title: "Freepik", desc: "矢量图、图片和 PSD 素材。", url: "https://www.freepik.com/", cat: "design", tag: "素材" },
+        { title: "站酷", desc: "国内设计师社区和素材。", url: "https://www.zcool.com.cn/", cat: "design", tag: "社区" },
+        { title: "花瓣网", desc: "设计灵感采集平台。", url: "https://huaban.com/", cat: "design", tag: "灵感" },
+        { title: "Dribbble", desc: "全球设计师作品分享社区。", url: "https://dribbble.com/", cat: "design", tag: "灵感" },
+        { title: "猫啃网", desc: "免费可商用中文字体。", url: "https://www.maoken.com/", cat: "design", tag: "字体" },
+        { title: "字由", desc: "字体管理和设计工具。", url: "https://www.hellofont.cn/", cat: "design", tag: "字体" },
+        { title: "Remove.bg", desc: "自动抠图工具。", url: "https://www.remove.bg/", cat: "design", tag: "图片处理" },
+        { title: "Bigjpg", desc: "图片无损放大。", url: "https://bigjpg.com/", cat: "design", tag: "图片处理" },
+        
+        // 开发工具
+        { title: "GitHub", desc: "全球最大代码托管平台。", url: "https://github.com/", cat: "dev", tag: "代码托管" },
+        { title: "Gitee", desc: "国内代码托管平台。", url: "https://gitee.com/", cat: "dev", tag: "代码托管" },
+        { title: "VS Code", desc: "微软开源编辑器，插件丰富。", url: "https://code.visualstudio.com/", cat: "dev", tag: "编辑器" },
+        { title: "Cursor", desc: "智能驱动的代码编辑器。", url: "https://cursor.com/", cat: "dev", tag: "编辑器" },
+        { title: "CodePen", desc: "在线前端代码演示平台。", url: "https://codepen.io/", cat: "dev", tag: "在线工具" },
+        { title: "Stack Overflow", desc: "程序员问答社区。", url: "https://stackoverflow.com/", cat: "dev", tag: "问答" },
+        { title: "MDN", desc: "Web 开发权威文档。", url: "https://developer.mozilla.org/", cat: "dev", tag: "文档" },
+        { title: "Railway", desc: "一键部署后端应用。", url: "https://railway.app/", cat: "dev", tag: "部署" },
+        { title: "Postman", desc: "API 调试和测试工具。", url: "https://www.postman.com/", cat: "dev", tag: "API" },
+        { title: "Docker", desc: "容器化应用平台。", url: "https://www.docker.com/", cat: "dev", tag: "运维" },
+        { title: "Regex101", desc: "正则表达式在线测试。", url: "https://regex101.com/", cat: "dev", tag: "工具" },
+        { title: "Json Crack", desc: "JSON 数据可视化工具。", url: "https://jsoncrack.com/", cat: "dev", tag: "工具" },
+        
+        // 效率工具
+        { title: "Notion", desc: "笔记、数据库、协作一体。", url: "https://www.notion.so/", cat: "eff", tag: "笔记" },
+        { title: "Obsidian", desc: "本地知识库和双向链接笔记。", url: "https://obsidian.md/", cat: "eff", tag: "笔记" },
+        { title: "语雀", desc: "阿里出品的专业文档工具。", url: "https://www.yuque.com/", cat: "eff", tag: "文档" },
+        { title: "飞书文档", desc: "字节出品协作文档。", url: "https://www.feishu.cn/", cat: "eff", tag: "协作" },
+        { title: "腾讯文档", desc: "在线文档和表格协作。", url: "https://docs.qq.com/", cat: "eff", tag: "协作" },
+        { title: "Flomo", desc: "轻量灵感记录工具。", url: "https://flomoapp.com/", cat: "eff", tag: "笔记" },
+        { title: "滴答清单", desc: "任务管理和番茄钟。", url: "https://dida365.com/", cat: "eff", tag: "待办" },
+        { title: "Todoist", desc: "跨平台任务管理工具。", url: "https://todoist.com/", cat: "eff", tag: "待办" },
+        { title: "Quicker", desc: "Windows 效率启动器。", url: "https://getquicker.net/", cat: "eff", tag: "效率" },
+        { title: "uTools", desc: "插件化效率工具集。", url: "https://u.tools/", cat: "eff", tag: "效率" },
+        { title: "Everything", desc: "极速本地文件搜索。", url: "https://www.voidtools.com/", cat: "eff", tag: "搜索" },
+        { title: "Listary", desc: "快速启动和文件搜索。", url: "https://www.listary.com/", cat: "eff", tag: "搜索" },
+        { title: "Snipaste", desc: "强大的截图贴图工具。", url: "https://www.snipaste.com/", cat: "eff", tag: "截图" },
+        { title: "ShareX", desc: "开源截图和录屏工具。", url: "https://getsharex.com/", cat: "eff", tag: "截图" },
+        { title: "Calibre", desc: "电子书管理和转换。", url: "https://calibre-ebook.com/", cat: "eff", tag: "电子书" },
+        { title: "Zotero", desc: "文献管理和引用工具。", url: "https://www.zotero.org/", cat: "eff", tag: "文献" },
+        
+        // 学习资源
+        { title: "哔哩哔哩", desc: "海量教程视频，学习资源丰富。", url: "https://www.bilibili.com/", cat: "learn", tag: "视频" },
+        { title: "中国大学 MOOC", desc: "高校精品课程平台。", url: "https://www.icourse163.org/", cat: "learn", tag: "课程" },
+        { title: "Coursera", desc: "国际知名在线课程平台。", url: "https://www.coursera.org/", cat: "learn", tag: "课程" },
+        { title: "freeCodeCamp", desc: "免费编程学习社区。", url: "https://www.freecodecamp.org/", cat: "learn", tag: "编程" },
+        { title: "菜鸟教程", desc: "编程基础入门教程。", url: "https://www.runoob.com/", cat: "learn", tag: "编程" },
+        { title: "W3Schools", desc: "Web 技术入门教程。", url: "https://www.w3schools.com/", cat: "learn", tag: "Web" },
+        { title: "知乎", desc: "知识问答社区。", url: "https://www.zhihu.com/", cat: "learn", tag: "问答" },
+        { title: "掘金", desc: "技术社区和学习资源。", url: "https://juejin.cn/", cat: "learn", tag: "技术" },
+        { title: "CSDN", desc: "中文 IT 技术社区。", url: "https://www.csdn.net/", cat: "learn", tag: "技术" },
+        { title: "小众软件", desc: "精品软件推荐和评测。", url: "https://www.appinn.com/", cat: "learn", tag: "软件" },
+        { title: "少数派", desc: "数字生活指南和效率方法论。", url: "https://sspai.com/", cat: "learn", tag: "数字生活" },
+        { title: "阮一峰博客", desc: "技术周报和入门教程。", url: "https://www.ruanyifeng.com/", cat: "learn", tag: "博客" },
+        
+        // 新闻资讯
+        { title: "36氪", desc: "科技创业和商业资讯。", url: "https://36kr.com/", cat: "news", tag: "科技" },
+        { title: "虎嗅", desc: "商业和科技深度报道。", url: "https://www.huxiu.com/", cat: "news", tag: "商业" },
+        { title: "极客公园", desc: "科技媒体和社区。", url: "https://www.geekpark.net/", cat: "news", tag: "科技" },
+        { title: "机器之心", desc: "智能领域专业媒体。", url: "https://www.jiqizhixin.com/", cat: "news", tag: "科技" },
+        { title: "量子位", desc: "前沿科技资讯。", url: "https://www.qbitai.com/", cat: "news", tag: "科技" },
+        { title: "TechCrunch", desc: "国际科技媒体。", url: "https://techcrunch.com/", cat: "news", tag: "国际" },
+        { title: "The Verge", desc: "科技、数码和文化评论。", url: "https://www.theverge.com/", cat: "news", tag: "国际" },
+        { title: "Product Hunt", desc: "新产品发现和推荐。", url: "https://www.producthunt.com/", cat: "news", tag: "产品" },
+        { title: "晚点 LatePost", desc: "商业深度报道。", url: "https://www.latepost.com/", cat: "news", tag: "商业" },
+        { title: "IT之家", desc: "IT 数码资讯。", url: "https://www.ithome.com/", cat: "news", tag: "数码" },
+        { title: "界面新闻", desc: "新闻和商业资讯。", url: "https://www.jiemian.com/", cat: "news", tag: "新闻" }
+    ];
+
+    // HTML 转义
+    function escapeHtml(str) {
+        return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // 获取图标 URL
+    function getIcon(url) {
+        if (!url.startsWith('http')) {
+            return '/favicon.ico';
+        }
+        try {
+            const domain = new URL(url).hostname;
+            if (window.FAVICON_MAP && window.FAVICON_MAP[domain]) {
+                return window.FAVICON_MAP[domain];
+            }
+            return '';
+        } catch (e) {
+            return '';
+        }
+    }
+
+    // 图标加载失败时 fallback 到首字母
+    function handleIconError(img) {
+        const title = img.dataset.title || '?';
+        img.src = getFallbackIcon(title);
+        img.onerror = null;
+    }
+
+    // 获取首字母 fallback 图标（SVG data URI，URL 编码确保兼容）
+    function getFallbackIcon(title) {
+        const first = (title || '?').trim().charAt(0);
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#f0f0f0"/><text x="32" y="42" font-size="28" font-family="Arial,sans-serif" fill="#666" text-anchor="middle">${first}</text></svg>`;
+        return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    // 渲染单个卡片
+    function createCard(item) {
+        const rawIcon = getIcon(item.url);
+        const safeTitle = escapeHtml(item.title);
+        const iconUrl = rawIcon || getFallbackIcon(safeTitle);
+        return `
+            <a href="${item.url}" class="card" target="${item.url.startsWith('http') ? '_blank' : '_self'}" rel="${item.url.startsWith('http') ? 'noopener' : ''}">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <img src="${iconUrl}" alt="" data-url="${item.url}" data-title="${safeTitle}" onerror="handleIconError(this)">
+                    </div>
+                    <div class="card-title" title="${safeTitle}">${safeTitle}</div>
+                </div>
+                <div class="card-desc">${item.desc}</div>
+                <div class="card-footer">
+                    <span class="card-tag">${item.tag}</span>
+                    <span class="card-btn">访问</span>
+                </div>
+            </a>
+        `;
+    }
+
+    // 初始化渲染
+    function init() {
+        const cats = ['video', 'media', 'design', 'dev', 'eff', 'learn', 'news'];
+        cats.forEach(cat => {
+            const grid = document.getElementById('grid-' + cat);
+            if (grid) {
+                const items = navData.filter(d => d.cat === cat);
+                grid.innerHTML = items.map(createCard).join('');
+            }
+        });
+    }
+
+    // 搜索过滤
+    function doSearch() {
+        const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+        const sections = document.querySelectorAll('.section');
+        const noResult = document.getElementById('noResult');
+        let hasResult = false;
+
+        if (keyword === '') {
+            filterByCat(currentCat);
+            noResult.classList.remove('show');
+            return;
+        }
+
+        sections.forEach(section => {
+            const grid = section.querySelector('.card-grid');
+            const cat = section.dataset.cat;
+            const items = navData.filter(d => d.cat === cat);
+            const matched = items.filter(item => 
+                item.title.toLowerCase().includes(keyword) ||
+                item.desc.toLowerCase().includes(keyword) ||
+                item.tag.toLowerCase().includes(keyword)
+            );
+            
+            if (matched.length > 0) {
+                grid.innerHTML = matched.map(createCard).join('');
+                section.classList.remove('hidden');
+                hasResult = true;
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+
+        noResult.classList.toggle('show', !hasResult);
+        
+        document.querySelectorAll('.cat-nav-item, .hero-tag').forEach(el => el.classList.remove('active'));
+    }
+
+    let currentCat = 'all';
+
+    // 分类过滤
+    function filterByCat(cat) {
+        currentCat = cat;
+        const sections = document.querySelectorAll('.section');
+        const noResult = document.getElementById('noResult');
+        
+        sections.forEach(section => {
+            if (cat === 'all' || section.dataset.cat === cat) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+        
+        noResult.classList.remove('show');
+        
+        if (cat !== 'all') {
+            const grid = document.getElementById('grid-' + cat);
+            if (grid) {
+                const items = navData.filter(d => d.cat === cat);
+                grid.innerHTML = items.map(createCard).join('');
+            }
+        } else {
+            const cats = ['video', 'media', 'design', 'dev', 'eff', 'learn', 'news'];
+            cats.forEach(c => {
+                const grid = document.getElementById('grid-' + c);
+                if (grid) {
+                    grid.innerHTML = navData.filter(d => d.cat === c).map(createCard).join('');
+                }
+            });
+        }
+    }
+
+    // 分类导航点击事件
+    document.getElementById('catNav').addEventListener('click', function(e) {
+        if (e.target.classList.contains('cat-nav-item')) {
+            e.preventDefault();
+            const cat = e.target.dataset.cat;
+            filterByCat(cat);
+            
+            document.querySelectorAll('.cat-nav-item').forEach(el => el.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            document.querySelectorAll('.hero-tag').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.hero-tag[data-cat="${cat}"]`)?.classList.add('active');
+            
+            document.getElementById('searchInput').value = '';
+        }
+    });
+
+    // 快速标签点击
+    document.getElementById('quickTags').addEventListener('click', function(e) {
+        if (e.target.classList.contains('hero-tag')) {
+            const cat = e.target.dataset.cat;
+            filterByCat(cat);
+            
+            document.querySelectorAll('.hero-tag').forEach(el => el.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            document.querySelectorAll('.cat-nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.cat-nav-item[data-cat="${cat}"]`)?.classList.add('active');
+            
+            document.getElementById('searchInput').value = '';
+        }
+    });
+
+    // 移动端菜单
+    function toggleMenu() {
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+    }
+
+    // 初始化
+    init();
+    </script>
+
+    <!-- 百度统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+    <!-- 结构化数据 JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "汤圆知识树屋 · 实用导航",
+      "alternateName": ["汤圆知识树屋", "实用导航"],
+      "url": "https://tangyuanzhp.top/",
+      "description": "精选100+优质网站与工具，涵盖视频剪辑、效率软件、开发工具、设计素材、学习平台。",
+      "inLanguage": "zh-CN",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://tangyuanzhp.top/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "网站导航分类",
+      "numberOfItems": 7,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "视频创作",
+          "description": "剪辑、下载、处理工具：剪映、DaVinci Resolve、FFmpeg、HandBrake、OBS Studio、yt-dlp、CapCut、Descript、AutoCut"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "媒体资源",
+          "description": "影视、音乐、电子书资源：Pexels、Unsplash、Pixabay、Mixkit、FreePD、书格、片库、哔哩哔哩"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "设计素材",
+          "description": "图片、图标、字体素材：Canva、Figma、即时设计、iconfont、IconPark、Freepik、站酷、花瓣网、Dribbble、猫啃网、字由、Remove.bg、Bigjpg"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "开发工具",
+          "description": "代码托管、编辑器、在线工具：GitHub、Gitee、VS Code、Cursor、CodePen、Stack Overflow、MDN、Railway、Postman、Docker、Regex101、Json Crack"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "效率工具",
+          "description": "办公、笔记、协作工具：Notion、Obsidian、语雀、飞书文档、腾讯文档、Flomo、滴答清单、Todoist、Quicker、uTools、Everything、Listary、Snipaste、ShareX、Calibre、Zotero"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "学习资源",
+          "description": "教程、课程、知识库：哔哩哔哩、中国大学MOOC、Coursera、freeCodeCamp、菜鸟教程、W3Schools、知乎、掘金、CSDN、小众软件、少数派、阮一峰博客"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "新闻资讯",
+          "description": "科技、行业、聚合资讯：36氪、虎嗅、极客公园、机器之心、量子位、TechCrunch、The Verge、Product Hunt、晚点LatePost、IT之家、界面新闻"
+        }
+      ]
+    }
+    </script>
+</body>
+</html>

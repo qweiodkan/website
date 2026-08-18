@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字幕时间轴偏移工具 - 在线SRT字幕时间调整 | 汤圆知识树屋</title>
+    <meta name="description" content="免费在线SRT字幕时间轴偏移工具。导入SRT字幕文件，输入偏移时间（秒/毫秒），秒级调整全部字幕时间轴，支持预览和导出修正后的字幕文件。视频剪辑必备。">
+    <meta name="keywords" content="字幕时间轴偏移,SRT字幕调整,字幕时间校准,字幕同步工具,字幕偏移,在线SRT编辑器,字幕时间修正">
+    <link rel="canonical" href="https://tangyuanzhp.top/tool/subtitle-shift/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta property="og:title" content="字幕时间轴偏移工具 - 在线SRT字幕时间调整 | 汤圆知识树屋">
+    <meta property="og:description" content="免费在线SRT字幕时间轴偏移工具，导入字幕文件，输入偏移量，一键导出修正后的字幕。">
+    <meta property="og:url" content="https://tangyuanzhp.top/tool/subtitle-shift/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="汤圆知识树屋">
+    <meta property="og:locale" content="zh_CN">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "字幕时间轴偏移工具",
+      "description": "免费在线SRT字幕时间轴偏移工具，支持导入字幕文件、输入偏移量（秒/毫秒）、实时预览和导出修正后的字幕文件。",
+      "url": "https://tangyuanzhp.top/tool/subtitle-shift/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "下载的字幕和视频对不上，整体慢了 1 秒，怎么调整？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "用字幕时间轴偏移工具，选「提前 -」方向，输入 1 秒，所有字幕时间轴会整体前移 1 秒。下载修正后的 SRT 文件重新导入视频即可。这种「整体偏移」是字幕组常见问题，工具能秒级处理几百条字幕。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "字幕时间轴整体平移，正数和负数分别什么意思？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "正数（延后 +）= 字幕出现时间往后推，适合字幕比画面快的情况；负数（提前 -）= 字幕向前移，适合字幕比画面慢的情况。判断方法：如果字幕先出来、画面后出来，用延后；如果画面先出来、字幕跟不上，用提前。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "这个工具支持 ASS 字幕格式吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "当前只支持 SRT 格式。ASS/SSA 格式建议先用 Aegisub 转成 SRT 再用本工具。SRT 是最通用的字幕格式，剪映、PR、达芬奇、Aegisub、VLC 都原生支持。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "字幕偏移后时间变成负数怎么办？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能出现。比如第一条字幕原本在 0.5 秒，设置提前 2 秒后会变成 -1.5 秒。大多数播放器会把负数视为 00:00:00 处理，不影响播放。但建议导出后检查前几条字幕，如果负数太多，说明偏移量设置过大，重新调小一点。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "字幕偏移工具会修改我的原始字幕文件吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不会。所有处理在浏览器本地完成，原始文件不上传、不修改。导出时会生成一个新的 SRT 文件下载到本地，原文件保持不变。工具完全免费、无需注册，可放心操作。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么下载的字幕整体慢半秒？是字幕组的问题吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "通常不是字幕组问题，而是视频版本差异。同一部影视作品，蓝光版、Web 版、TV 版的片头长度可能不同（差 0.5-3 秒很常见），导致字幕对不上。用偏移工具整体调整即可，不需要找新字幕。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "能同时调整多条字幕的偏移量不一样吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "当前版本只支持「整体偏移」，所有字幕统一前移或后移相同时间。如果字幕前半段对、后半段错位（渐变偏移），需要分段处理：把 SRT 拆成两部分，分别设置不同偏移量再合并。"
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; display: flex; flex-direction: column; min-height: 100vh; }
+        body > * { flex-shrink: 0; } body > footer { margin-top: auto; }
+        nav { background: #000; padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #aaa; text-decoration: none; margin-left: 30px; transition: color 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .breadcrumb { padding: 90px 20px 0; max-width: 1200px; margin: 0 auto; }
+        .breadcrumb a { color: #666; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .breadcrumb a:hover { color: #000; }
+        .breadcrumb span { color: #aaa; font-size: 14px; }
+        .hero { background: #000; color: #fff; padding: 50px 20px 80px; text-align: center; }
+        .hero h1 { font-size: 42px; margin-bottom: 16px; font-weight: 700; }
+        .hero p { font-size: 18px; color: #aaa; max-width: 600px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-title { text-align: center; font-size: 30px; margin-bottom: 40px; color: #000; }
+        .tool-section { padding: 60px 20px; background: #fff; }
+        .tool-card { max-width: 760px; margin: 0 auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden; }
+        .tool-body { padding: 32px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
+        .file-drop { border: 2px dashed #ccc; border-radius: 12px; padding: 36px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa; }
+        .file-drop:hover { border-color: #000; background: #f5f5f5; }
+        .file-drop.has-file { border-color: #27ae60; background: #f0faf4; }
+        .file-drop p { color: #888; font-size: 15px; }
+        .file-drop p strong { color: #333; }
+        .file-drop .file-name { color: #27ae60; font-weight: 600; font-size: 14px; margin-top: 6px; display: none; }
+        .file-drop.has-file .file-name { display: block; }
+        .file-drop.has-file .drop-hint { display: none; }
+        .shift-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .shift-row input[type="number"] { width: 140px; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; outline: none; transition: border-color 0.2s; }
+        .shift-row input:focus { border-color: #000; }
+        .shift-row .direction-select { padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; background: #fff; cursor: pointer; min-width: 100px; outline: none; }
+        .shift-row .unit-select { padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; background: #fff; cursor: pointer; min-width: 100px; outline: none; }
+        .preset-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .preset-btn { padding: 6px 14px; border: 1px solid #ddd; border-radius: 20px; background: #fff; font-size: 13px; color: #666; cursor: pointer; transition: all 0.2s; }
+        .preset-btn:hover { border-color: #000; color: #000; }
+        .preset-btn.active { background: #000; color: #fff; border-color: #000; }
+        .action-row { display: flex; gap: 12px; margin-bottom: 20px; }
+        .btn { padding: 14px 28px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: #000; color: #fff; }
+        .btn-primary:hover { background: #333; }
+        .btn-secondary { background: #f0f0f0; color: #333; }
+        .btn-secondary:hover { background: #e0e0e0; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .preview-area { background: #f9fafb; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; max-height: 300px; overflow-y: auto; font-size: 13px; color: #666; display: none; }
+        .preview-area.visible { display: block; }
+        .preview-item { padding: 8px 12px; border-bottom: 1px solid #eee; display: flex; gap: 12px; align-items: baseline; }
+        .preview-item:last-child { border-bottom: none; }
+        .preview-index { color: #999; min-width: 24px; font-size: 12px; }
+        .preview-time { font-family: "Courier New", monospace; color: #333; min-width: 240px; }
+        .preview-time.changed { color: #2196F3; font-weight: 600; }
+        .preview-text { flex: 1; }
+        .stats-row { display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+        .stat-card { flex: 1; min-width: 100px; background: #f5f5f5; border-radius: 10px; padding: 16px; text-align: center; }
+        .stat-value { font-size: 22px; font-weight: 700; color: #000; }
+        .stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+        .error-msg { color: #e74c3c; font-size: 13px; margin-top: 4px; display: none; }
+        .error-msg.visible { display: block; }
+        .formula-section { padding: 60px 20px; background: #f5f5f5; }
+        .formula-box { max-width: 700px; margin: 0 auto 24px; background: #fff; border-radius: 12px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .formula-box h3 { font-size: 18px; margin-bottom: 12px; color: #000; }
+        .formula-box ol { padding-left: 20px; color: #555; line-height: 2; }
+        .faq-section { padding: 60px 20px; background: #fff; }
+        .faq-list { max-width: 760px; margin: 0 auto; }
+        .faq-item { margin-bottom: 12px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .faq-question { background: #fff; padding: 18px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 15px; transition: background 0.2s; }
+        .faq-question:hover { background: #f0f0f0; }
+        .faq-answer { background: #fff; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; font-size: 14px; color: #666; line-height: 1.8; }
+        .faq-answer.active { padding: 18px 20px; max-height: 500px; }
+        .faq-arrow { transition: transform 0.3s; }
+        .faq-arrow.rotate { transform: rotate(180deg); }
+        footer { background: #111; color: #666; text-align: center; padding: 30px 20px; font-size: 14px; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 54px; left: 0; width: 100%; background: #000; z-index: 99; padding: 10px 0 20px; border-top: 1px solid #222; }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a { display: block; color: #aaa; text-decoration: none; padding: 12px 20px; font-size: 16px; transition: color 0.3s; }
+        .mobile-menu a:hover { color: #fff; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; } .hamburger { display: flex; }
+            .hero h1 { font-size: 28px; } .hero p { font-size: 15px; }
+            .shift-row { flex-direction: column; }
+            .shift-row input[type="number"] { width: 100%; }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links"><a href="/">首页</a><a href="/tool/">导航</a><a href="/blog/">文章</a><a href="/about/">关于</a></div>
+            <button class="hamburger" id="hamburger" aria-label="菜单" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu"><a href="/">首页</a><a href="/tool/">导航</a><a href="/blog/">文章</a><a href="/about/">关于</a></div>
+
+    <div class="breadcrumb"><a href="/">首页</a> <span>/</span> <a href="/tool/">导航</a> <span>/</span> 字幕时间轴偏移</div>
+
+    <section class="hero">
+        <h1>字幕时间轴偏移工具</h1>
+        <p>导入 SRT 字幕文件，输入偏移时间（秒或毫秒），一键调整所有字幕时间轴。解决字幕与画面对不上、提前/延后的常见问题。</p>
+    </section>
+
+    <section class="tool-section">
+        <div class="tool-card">
+            <div class="tool-body">
+                <div class="input-group">
+                    <label>1. 导入 SRT 字幕文件</label>
+                    <div class="file-drop" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                        <p class="drop-hint">点击选择或拖拽 <strong>.srt 字幕文件</strong> 到此处</p>
+                        <p class="drop-hint" style="font-size:12px;margin-top:4px;">也支持直接粘贴字幕文本</p>
+                        <p class="file-name" id="fileName"></p>
+                    </div>
+                    <input type="file" id="fileInput" accept=".srt,.txt" style="display:none" onchange="handleFile(this)">
+                    <textarea id="pasteArea" style="display:none;width:100%;height:140px;border:2px solid #e0e0e0;border-radius:10px;padding:12px;font-family:'Courier New',monospace;font-size:13px;resize:vertical;outline:none;margin-top:8px;" placeholder="在此粘贴 SRT 字幕内容...&#10;&#10;示例格式：&#10;1&#10;00:00:01,000 --> 00:00:03,000&#10;第一句字幕" oninput="parsePasted()"></textarea>
+                    <button class="preset-btn" style="margin-top:8px;" onclick="togglePaste()" id="pasteToggle">或粘贴字幕文本</button>
+                </div>
+
+                <div class="input-group" id="shiftGroup" style="display:none;">
+                    <label>2. 设置时间偏移量</label>
+                    <div class="shift-row">
+                        <select class="direction-select" id="shiftDir" onchange="applyShift()">
+                            <option value="+">延后 +</option>
+                            <option value="-">提前 -</option>
+                        </select>
+                        <input type="number" id="shiftVal" placeholder="偏移量" min="0" step="0.001" value="1" oninput="applyShift()">
+                        <select class="unit-select" id="shiftUnit" onchange="applyShift()">
+                            <option value="s">秒</option>
+                            <option value="ms">毫秒</option>
+                        </select>
+                    </div>
+                    <div class="preset-row">
+                        <button class="preset-btn" onclick="setShift('+',0.5,'s')">+0.5 秒</button>
+                        <button class="preset-btn" onclick="setShift('+',1,'s')">+1 秒</button>
+                        <button class="preset-btn" onclick="setShift('+',2,'s')">+2 秒</button>
+                        <button class="preset-btn" onclick="setShift('-',0.5,'s')">-0.5 秒</button>
+                        <button class="preset-btn" onclick="setShift('-',1,'s')">-1 秒</button>
+                        <button class="preset-btn" onclick="setShift('-',2,'s')">-2 秒</button>
+                    </div>
+                </div>
+
+                <div class="stats-row" id="statsRow" style="display:none;">
+                    <div class="stat-card"><div class="stat-value" id="statCount">0</div><div class="stat-label">字幕条数</div></div>
+                    <div class="stat-card"><div class="stat-value" id="statOffset">0</div><div class="stat-label">偏移量</div></div>
+                    <div class="stat-card"><div class="stat-value" id="statRange">-</div><div class="stat-label">时间范围</div></div>
+                </div>
+
+                <div class="error-msg" id="parseError"></div>
+
+                <div class="preview-area" id="previewArea">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                        <strong style="font-size:14px;color:#333;">字幕预览（前 20 条）</strong>
+                        <span style="font-size:12px;color:#2196F3;">蓝色 = 偏移后时间</span>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+
+                <div class="action-row" style="margin-top:20px;" id="actionRow" style="display:none;">
+                    <button class="btn btn-primary" id="downloadBtn" onclick="downloadSRT()" disabled>下载修正后的字幕</button>
+                    <button class="btn btn-secondary" onclick="resetAll()">重置</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="formula-section">
+        <div class="container">
+            <h2 class="section-title">使用说明</h2>
+            <div class="formula-box">
+                <h3>适用场景</h3>
+                <ol>
+                    <li>下载的字幕与视频不同步（整体偏快或偏慢）</li>
+                    <li>字幕来源于不同版本（如蓝光版字幕用于 Web 版视频）</li>
+                    <li>合并多段视频后字幕需要统一偏移</li>
+                    <li>字幕组时间轴校对——手动调整不方便时批量偏移</li>
+                </ol>
+            </div>
+            <div class="formula-box">
+                <h3>支持的字幕格式</h3>
+                <p style="color:#555;line-height:2;">
+                    <strong>SRT 格式（SubRip）</strong>——最通用的字幕格式，Pr Pro、剪映、达芬奇、Aegisub 均支持。<br>
+                    格式示例：<br>
+                    <code style="background:#f0f0f0;padding:4px 8px;border-radius:4px;">1<br>00:00:01,500 --> 00:00:03,200<br>这是第一句字幕</code>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <div class="faq-list">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>下载的字幕和视频对不上，整体慢了 1 秒，怎么调整？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">用字幕时间轴偏移工具，选「提前 -」方向，输入 1 秒，所有字幕时间轴会整体前移 1 秒。下载修正后的 SRT 文件重新导入视频即可。这种「整体偏移」是字幕组常见问题，工具能秒级处理几百条字幕。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>字幕时间轴整体平移，正数和负数分别什么意思？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">正数（延后 +）= 字幕出现时间往后推，适合字幕比画面快的情况；负数（提前 -）= 字幕向前移，适合字幕比画面慢的情况。判断方法：如果字幕先出来、画面后出来，用延后；如果画面先出来、字幕跟不上，用提前。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>这个工具支持 ASS 字幕格式吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">当前只支持 SRT 格式。ASS/SSA 格式建议先用 Aegisub 转成 SRT 再用本工具。SRT 是最通用的字幕格式，剪映、PR、达芬奇、Aegisub、VLC 都原生支持。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>字幕偏移后时间变成负数怎么办？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">可能出现。比如第一条字幕原本在 0.5 秒，设置提前 2 秒后会变成 -1.5 秒。大多数播放器会把负数视为 00:00:00 处理，不影响播放。但建议导出后检查前几条字幕，如果负数太多，说明偏移量设置过大，重新调小一点。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>字幕偏移工具会修改我的原始字幕文件吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">不会。所有处理在浏览器本地完成，原始文件不上传、不修改。导出时会生成一个新的 SRT 文件下载到本地，原文件保持不变。工具完全免费、无需注册，可放心操作。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>为什么下载的字幕整体慢半秒？是字幕组的问题吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">通常不是字幕组问题，而是视频版本差异。同一部影视作品，蓝光版、Web 版、TV 版的片头长度可能不同（差 0.5-3 秒很常见），导致字幕对不上。用偏移工具整体调整即可，不需要找新字幕。</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question"><span>能同时调整多条字幕的偏移量不一样吗？</span><span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer">当前版本只支持「整体偏移」，所有字幕统一前移或后移相同时间。如果字幕前半段对、后半段错位（渐变偏移），需要分段处理：把 SRT 拆成两部分，分别设置不同偏移量再合并。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2026 汤圆知识树屋 &middot; <a href="/tool/" style="color:#999;text-decoration:none;">更多工具</a></p><p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p></footer>
+
+    <script>
+        var originalSubtitles = [];
+        var shiftedSubtitles = [];
+        var shiftMs = 1000;
+
+        function toggleMenu() {
+            document.getElementById('hamburger').classList.toggle('open');
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        function toggleFaq(item) {
+            item.querySelector('.faq-answer').classList.toggle('active');
+            item.querySelector('.faq-arrow').classList.toggle('rotate');
+        }
+
+        function togglePaste() {
+            var ta = document.getElementById('pasteArea');
+            var btn = document.getElementById('pasteToggle');
+            if (ta.style.display === 'none' || !ta.style.display) {
+                ta.style.display = 'block';
+                btn.textContent = '隐藏粘贴区';
+            } else {
+                ta.style.display = 'none';
+                btn.textContent = '或粘贴字幕文本';
+                document.getElementById('fileInput').value = '';
+            }
+        }
+
+        function handleFile(input) {
+            var file = input.files[0];
+            if (!file) return;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('dropZone').classList.add('has-file');
+            document.getElementById('pasteArea').style.display = 'none';
+            document.getElementById('pasteToggle').textContent = '或粘贴字幕文本';
+            var reader = new FileReader();
+            reader.onload = function(e) { parseSRT(e.target.result); };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function parsePasted() {
+            var text = document.getElementById('pasteArea').value.trim();
+            if (text) parseSRT(text);
+        }
+
+        function parseSRT(text) {
+            document.getElementById('parseError').classList.remove('visible');
+            originalSubtitles = [];
+            var blocks = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split(/\n\n+/);
+            var timeRe = /(\d{2}:\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}[.,]\d{3})/;
+            for (var i = 0; i < blocks.length; i++) {
+                var block = blocks[i].trim();
+                if (!block) continue;
+                var lines = block.split('\n');
+                var match = block.match(timeRe);
+                if (!match) {
+                    var match2 = lines.join(' ').match(timeRe);
+                    if (!match2) continue;
+                    match = match2;
+                }
+                var idx = parseInt(lines[0]) || (originalSubtitles.length + 1);
+                var textLines = [];
+                var foundTime = false;
+                for (var j = 0; j < lines.length; j++) {
+                    var line = lines[j].trim();
+                    if (timeRe.test(line)) { foundTime = true; continue; }
+                    if (!foundTime && /^\d+$/.test(line)) continue;
+                    if (foundTime && line) textLines.push(line);
+                }
+                originalSubtitles.push({ index: idx, start: parseTime(match[1]), end: parseTime(match[2]), startStr: match[1], endStr: match[2], text: textLines.join('\n') });
+            }
+            if (originalSubtitles.length === 0) {
+                var err = document.getElementById('parseError');
+                err.textContent = '未识别到有效的 SRT 字幕格式。请确认格式正确（包含 00:00:00,000 --> 00:00:00,000 时间轴）';
+                err.classList.add('visible');
+                return;
+            }
+            document.getElementById('shiftGroup').style.display = 'block';
+            document.getElementById('actionRow').style.display = 'flex';
+            applyShift();
+        }
+
+        function parseTime(str) {
+            var m = str.match(/(\d{2}):(\d{2}):(\d{2})[.,](\d{3})/);
+            if (!m) return 0;
+            return parseInt(m[1])*3600000 + parseInt(m[2])*60000 + parseInt(m[3])*1000 + parseInt(m[4]);
+        }
+
+        function formatTime(ms) {
+            var negative = ms < 0;
+            if (negative) ms = Math.abs(ms);
+            var h = Math.floor(ms / 3600000);
+            var m = Math.floor((ms % 3600000) / 60000);
+            var s = Math.floor((ms % 60000) / 1000);
+            var millis = Math.floor(ms % 1000);
+            return (negative ? '-' : '') +
+                String(h).padStart(2,'0') + ':' +
+                String(m).padStart(2,'0') + ':' +
+                String(s).padStart(2,'0') + ',' +
+                String(millis).padStart(3,'0');
+        }
+
+        function getShiftMs() {
+            var val = parseFloat(document.getElementById('shiftVal').value) || 0;
+            var unit = document.getElementById('shiftUnit').value;
+            var dir = document.getElementById('shiftDir').value;
+            var ms = unit === 's' ? val * 1000 : val;
+            return dir === '+' ? ms : -ms;
+        }
+
+        function setShift(dir, val, unit) {
+            document.getElementById('shiftDir').value = dir;
+            document.getElementById('shiftVal').value = val;
+            document.getElementById('shiftUnit').value = unit;
+            applyShift();
+        }
+
+        function applyShift() {
+            shiftMs = getShiftMs();
+            if (originalSubtitles.length === 0) return;
+            shiftedSubtitles = originalSubtitles.map(function(sub) {
+                return {
+                    index: sub.index,
+                    start: sub.start + shiftMs,
+                    end: sub.end + shiftMs,
+                    startStr: formatTime(sub.start + shiftMs),
+                    endStr: formatTime(sub.end + shiftMs),
+                    text: sub.text,
+                    origStartStr: sub.startStr,
+                    origEndStr: sub.endStr
+                };
+            });
+
+            document.getElementById('statCount').textContent = originalSubtitles.length;
+            var sign = shiftMs >= 0 ? '+' : '';
+            var displayMs = shiftMs;
+            document.getElementById('statOffset').textContent = sign + (Math.abs(shiftMs) >= 1000 ? (shiftMs/1000).toFixed(2) + ' 秒' : Math.abs(shiftMs).toFixed(0) + ' 毫秒');
+
+            var firstStart = formatTime(shiftedSubtitles[0].start);
+            var lastEnd = formatTime(shiftedSubtitles[shiftedSubtitles.length-1].end);
+            document.getElementById('statRange').textContent = firstStart + ' ~ ' + lastEnd;
+
+            document.getElementById('statsRow').style.display = 'flex';
+            document.getElementById('downloadBtn').disabled = false;
+            document.getElementById('downloadBtn').textContent = '下载修正后的字幕（' + originalSubtitles.length + ' 条）';
+            renderPreview();
+        }
+
+        function renderPreview() {
+            var area = document.getElementById('previewArea');
+            var content = document.getElementById('previewContent');
+            area.classList.add('visible');
+            var limit = Math.min(20, shiftedSubtitles.length);
+            var html = '';
+            for (var i = 0; i < limit; i++) {
+                var s = shiftedSubtitles[i];
+                var changed = (s.startStr !== s.origStartStr);
+                html += '<div class="preview-item">'
+                    + '<span class="preview-index">#' + s.index + '</span>'
+                    + '<span class="preview-time' + (changed ? ' changed' : '') + '">' + s.startStr + ' --> ' + s.endStr + '</span>'
+                    + '<span class="preview-text">' + (s.text.length > 40 ? s.text.substring(0,40) + '...' : s.text) + '</span>'
+                    + '</div>';
+            }
+            if (shiftedSubtitles.length > 20) {
+                html += '<div class="preview-item" style="justify-content:center;color:#999;">... 共 ' + shiftedSubtitles.length + ' 条，仅显示前 20 条</div>';
+            }
+            content.innerHTML = html;
+        }
+
+        function downloadSRT() {
+            if (shiftedSubtitles.length === 0) return;
+            var lines = [];
+            for (var i = 0; i < shiftedSubtitles.length; i++) {
+                var s = shiftedSubtitles[i];
+                lines.push(String(i+1));
+                lines.push(s.startStr + ' --> ' + s.endStr);
+                lines.push(s.text);
+                lines.push('');
+            }
+            var blob = new Blob([lines.join('\r\n')], { type: 'text/plain;charset=UTF-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'shifted_subtitle.srt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function resetAll() {
+            originalSubtitles = [];
+            shiftedSubtitles = [];
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileName').textContent = '';
+            document.getElementById('dropZone').classList.remove('has-file');
+            document.getElementById('pasteArea').value = '';
+            document.getElementById('pasteArea').style.display = 'none';
+            document.getElementById('pasteToggle').textContent = '或粘贴字幕文本';
+            document.getElementById('shiftVal').value = '1';
+            document.getElementById('shiftDir').value = '+';
+            document.getElementById('shiftUnit').value = 's';
+            document.getElementById('shiftGroup').style.display = 'none';
+            document.getElementById('statsRow').style.display = 'none';
+            document.getElementById('previewArea').classList.remove('visible');
+            document.getElementById('downloadBtn').disabled = true;
+            document.getElementById('downloadBtn').textContent = '下载修正后的字幕';
+            document.getElementById('actionRow').style.display = 'none';
+            document.getElementById('parseError').classList.remove('visible');
+        }
+
+        var dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.style.borderColor = '#000'; });
+        dropZone.addEventListener('dragleave', function() { dropZone.style.borderColor = '#ccc'; });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+            var file = e.dataTransfer.files[0];
+            if (file) {
+                document.getElementById('fileInput').files = e.dataTransfer.files;
+                handleFile(document.getElementById('fileInput'));
+            }
+        });
+    </script>
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</body>
+</html>

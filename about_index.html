@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于本站 - 汤圆知识树屋</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta name="description" content="汤圆知识树屋是一个个人技术分享网站，专注视频处理、AI 应用和效率工具的开发与探索。">
+    <meta property="og:title" content="关于本站 - 汤圆知识树屋">
+    <meta property="og:description" content="汤圆知识树屋是一个个人技术分享网站，专注视频处理、AI 应用和效率工具的开发与探索。">
+    <meta property="og:url" content="https://tangyuanzhp.top/about/">
+    <meta property="og:type" content="website">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        body > * { flex-shrink: 0; }
+        body > footer { margin-top: auto; }
+        
+        nav {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        
+        .page-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 140px 20px 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: #aaa;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .about-content {
+            padding: 80px 0;
+        }
+        
+        .about-intro {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 60px;
+        }
+        .about-intro p {
+            color: #666;
+            line-height: 2;
+            font-size: 15px;
+        }
+        
+        .about-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .about-card h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+        }
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .info-text h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 2px;
+        }
+        .info-text p {
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .qr-section {
+            text-align: center;
+            padding: 40px;
+            background: #f9f9f9;
+            border-radius: 15px;
+        }
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: none;  /* 有图片时隐藏占位块 */
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #fff;
+            margin: 0 auto 12px;
+        }
+        .qr-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin: 0 auto 12px;
+            display: block;
+        }
+        .qr-label {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        footer {
+            background: #111;
+            color: #666;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        footer p { margin-bottom: 8px; }
+        footer a { color: #888; text-decoration: none; }
+        footer a:hover { color: #fff; }
+
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* 汉堡菜单 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 54px;
+            left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 99;
+            padding: 10px 0 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+
+        /* 二维码待上传提示 */
+        .qr-pending {
+            width: 180px;
+            height: 180px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto 12px;
+            color: #bbb;
+        }
+        .qr-pending .qr-icon { font-size: 36px; }
+        .qr-pending .qr-tip { font-size: 12px; text-align: center; line-height: 1.5; }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">汤圆知识树屋</a>
+            <div class="nav-links">
+                <a href="/">首页</a>
+                <a href="/tool/">导航</a>
+                <a href="/blog/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">首页</a>
+        <a href="/tool/">导航</a>
+        <a href="/blog/">文章</a>
+        <a href="/about/">关于</a>
+    </div>
+    
+    <section class="page-header">
+        <h1>关于本站</h1>
+        <p>一个学习者的知识树屋</p>
+    </section>
+    
+    <div class="container">
+        <div class="about-content">
+            <div class="about-intro">
+                <p>汤圆知识树屋是一个个人分享网站，专注于<strong>视频处理</strong>、<strong>AI 应用</strong>和<strong>效率工具</strong>的开发与探索。</p>
+                <p style="margin-top:15px;">希望能为同样在路上的你提供一些参考。</p>
+            </div>
+            
+            <div class="qr-section">
+                <img src="/qrcode.jpg" alt="公众号二维码" class="qr-img">
+                <p class="qr-label">微信扫码关注「黄饭团」</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2026 汤圆知识树屋</p>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2025408835号-1</a></p>
+    </footer>
+
+    <script>
+    function toggleMenu() {
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+    }
+    </script>
+</body>
+</html>

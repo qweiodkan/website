@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表 - 汤圆知识树屋</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a1a1a'/%3E%3Cpath d='M32 12 L22 26 L28 26 L20 38 L30 38 L28 52 L36 52 L34 38 L44 38 L36 26 L42 26 Z' fill='%23ccc'/%3E%3C/svg%3E">
+    <meta name="description" content="汤圆知识树屋的文章列表，涵盖技术教程、行业科普与项目心得，记录从零学习技术的真实历程。">
+    <meta property="og:title" content="文章列表 - 汤圆知识树屋">
+    <meta property="og:description" content="技术教程、行业科普与项目心得，记录从零学习技术的真实历程。">
+    <meta property="og:url" content="https://tangyuanzhp.top/articles/">
+    <meta property="og:type" content="website">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        /* 导航栏 */
+        nav {
+            background: #000;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 140px 20px 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: #aaa;
+            font-size: 16px;
+        }
+        
+        /* 分类筛选 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 30px 0;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            padding: 8px 22px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+            text-decoration: none;
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: #000;
+            color: #000;
+            background: #000;
+            color: #fff;
+        }
+        
+        /* 文章列表 */
+        .article-list {
+            padding-bottom: 80px;
+        }
+        .article-item {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .article-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        .article-date {
+            flex-shrink: 0;
+            width: 70px;
+            text-align: center;
+            padding-top: 5px;
+        }
+        .article-date .day {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+            line-height: 1;
+        }
+        .article-date .month {
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
+        .article-content {
+            flex: 1;
+        }
+        .article-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .tag-tutorial { background: #e8eaf6; color: #3949ab; }
+        .tag-science { background: #fce4ec; color: #c62828; }
+        .tag-thoughts { background: #e8f5e9; color: #2e7d32; }
+        .article-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #000;
+            transition: color 0.3s;
+        }
+        .article-item:hover .article-content h3 {
+            color: #667eea;
+        }
+        .article-content p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #aaa;
+        }
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #111;
+            color: #666;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 600px) {
+            .article-item { flex-direction: column; gap: 15px; }
+            .article-date { display: flex; gap: 8px; align-items: center; width: auto; }
+            .article-date .day { font-size: 20px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* 汉堡菜单 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 54px;
+            left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 99;
+            padding: 10px 0 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+
+        /* 隐藏文章条目 */
+        .article-item.hidden { display: none; }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">🌳 汤圆知识树屋</a>
+            <div class="nav-links">
+                <a href="/">首页</a>
+                <a href="/tool/">工具</a>
+                <a href="/articles/">文章</a>
+                <a href="/about/">关于</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="打开菜单" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">首页</a>
+        <a href="/tool/">工具</a>
+        <a href="/articles/">文章</a>
+        <a href="/about/">关于</a>
+    </div>
+    
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <h1>📝 文章列表</h1>
+        <p>技术教程 · 行业科普 · 项目心得</p>
+    </section>
+    
+    <!-- 分类筛选 -->
+    <div class="container">
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterArticles('all', this)">全部</button>
+            <button class="filter-btn" onclick="filterArticles('tutorial', this)">技术教程</button>
+            <button class="filter-btn" onclick="filterArticles('science', this)">行业科普</button>
+            <button class="filter-btn" onclick="filterArticles('thoughts', this)">项目心得</button>
+        </div>
+        
+        <!-- 文章列表 -->
+        <div class="article-list">
+            <a href="/articles/build-website.html" class="article-item" data-category="tutorial">
+                <div class="article-date">
+                    <div class="day">24</div>
+                    <div class="month">2026-06</div>
+                </div>
+                <div class="article-content">
+                    <span class="article-tag tag-tutorial">技术教程</span>
+                    <h3>从零搭建个人网站：Docker + Nginx 完整指南</h3>
+                    <p>手把手教你用腾讯云轻量服务器搭建自己的网站，包含 Docker 部署、Nginx 配置、HTTPS 证书申请、域名解析等全流程。适合完全不懂服务器的新手。</p>
+                </div>
+            </a>
+
+            <!-- 占位：后续文章 -->
+            <a href="#" class="article-item" data-category="science" style="opacity: 0.6;">
+                <div class="article-date">
+                    <div class="day">--</div>
+                    <div class="month">待发布</div>
+                </div>
+                <div class="article-content">
+                    <span class="article-tag tag-science">行业科普</span>
+                    <h3>AI 视频分析技术入门：计算机视觉如何理解画面</h3>
+                    <p>从关键帧提取到质量评分，带你了解智能视频处理背后的核心技术原理...</p>
+                </div>
+            </a>
+
+            <a href="#" class="article-item" data-category="thoughts" style="opacity: 0.6;">
+                <div class="article-date">
+                    <div class="day">--</div>
+                    <div class="month">待发布</div>
+                </div>
+                <div class="article-content">
+                    <span class="article-tag tag-thoughts">项目心得</span>
+                    <h3>做一个便携化 Python 工具踩过的那些坑</h3>
+                    <p>从编码问题到依赖管理，记录开发视频筛选工具过程中遇到的真实问题和解决方案...</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2026 汤圆知识树屋</p>
+    </footer>
+
+    <!-- 百度统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c61f97bf229a63c2d538de26ebc378ef";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <script>
+    function filterArticles(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelectorAll('.article-item').forEach(function(item) {
+            if (category === 'all' || item.dataset.category === category) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+    }
+    function toggleMenu() {
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+    }
+    </script>
+</body>
+</html>
